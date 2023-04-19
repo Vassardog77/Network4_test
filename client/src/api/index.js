@@ -9,7 +9,7 @@ if (window.location.origin.includes("localhost")) {
      baseurl = "https://api.network770.com" //port changed to 80
 }
 export const base_url = baseurl
-console.log("commands are working")
+console.log("working 2")
 console.log("base url being used is "+base_url)
 
 const postUrl = base_url+'/posts' //the specific routes that the client is accessing in the server
