@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios'
+import { base_url } from '../../api';
 function InstagramLogin(props) { 
     const current_user = JSON.parse(localStorage.getItem('user'))
 
@@ -7,7 +8,7 @@ function InstagramLogin(props) {
     const [Login,setLogin] = useState(false)
 
     let login = () => {                                         //(1st function run) getting facebook pages and related info
-        axios.get('http://localhost:5000/pages?')
+        axios.get(base_url+'/pages?')
         .then(response => {
             setPages(response.data)
             setLogin(true)
@@ -18,7 +19,7 @@ function InstagramLogin(props) {
     const [Content, setContent] = useState(<button onClick={login}>Insta Login</button>)
 
     const handleSubmit = (e) => {                               //(3rd and final function run) once page is selected, send information to the server
-        axios.post('http://localhost:5000/login/ig',
+        axios.post(base_url+'/login/ig',
         { //setting request body
             "id": Pages[e.target.value].id,
              "access_token": Pages[e.target.value].access_token,

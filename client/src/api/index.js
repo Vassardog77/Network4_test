@@ -1,12 +1,12 @@
 import axios from "axios";
 
-var baseurl = "http://172.31.23.235:5000"//port changed to 80
+var baseurl = "https://api.network770.com"//port changed to 80
 
 
 if (window.location.origin.includes("localhost")) {
     baseurl = "http://localhost:5000"
 } else {
-     baseurl = "http://172.31.23.235:5000" //port changed to 80
+     baseurl = "https://api.network770.com" //port changed to 80
 }
 export const base_url = baseurl
 console.log("updated email stuff")
