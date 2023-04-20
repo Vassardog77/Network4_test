@@ -6,6 +6,7 @@ import { Line } from 'react-chartjs-2'
 import { Chart as Chartjs, LineElement, CategoryScale, LinearScale, PointElement,
 ArcElement, Tooltip, Legend, BarElement} from 'chart.js'
 import { base_url } from '../../api';
+import '../../App.css';
 Chartjs.register( LineElement, CategoryScale, LinearScale, PointElement, ArcElement, Tooltip, Legend, BarElement)
 function AnalyticsFunctionality(props) {
 
