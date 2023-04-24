@@ -55,7 +55,7 @@ export const getGLogin = async (req, res) => {  //google login fucntion
         '&client_secret='+gvalues.secret+
         '&grant_type=authorization_code'
       }
-      await ApiToken.deleteMany({media: "google"})           //delete old values (add ,user:user as check)
+      await ApiToken.deleteMany({media: "google",user:user})           //delete old values (add ,user:user as check)
       axios(config)
       .then(async function (response) {
         const data = response.data

@@ -6,6 +6,7 @@ function CalendarComponent2(props) {
 
     let [Calendar, setCalendar] = useState()
     let [MonthIncrement, setMonthIncrement] = useState(0)
+    const current_user = JSON.parse(localStorage.getItem('user'))
     //initializing months
     let months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
 
@@ -124,7 +125,9 @@ function CalendarComponent2(props) {
     }
 
     let add_events = (calendar_array) => {//test
-        axios.get(base_url+'/calendar/get')
+        axios.post(base_url+'/calendar/get',
+            {"user": current_user.email}
+        )
         .then(response => {
             let events = response.data.items
             let calendar_array_final = add_events_callback(calendar_array,events)

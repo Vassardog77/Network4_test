@@ -28,8 +28,12 @@ export const postEvents = async (req, res) => {
 
 
 export const getEvents = async (req, res) => { //sending email through gmail
+
+  const user = req.body.user //getting email from request body (must be uri encoded to work)
+  const uri_encoded_user = encodeURIComponent(user)
+  console.log(user)
     
-  const GToken = await ApiToken.findOne({media: "google"})
+  const GToken = await ApiToken.findOne({media: "google", user: user })
   const todays_date = new Date()
   let current_month = (todays_date.getMonth()+1)
   let start_month = String(current_month).padStart(2, '0')
@@ -37,7 +41,7 @@ export const getEvents = async (req, res) => { //sending email through gmail
 
     var config = {
       method: 'get',
-      url: 'https://www.googleapis.com/calendar/v3/calendars/benmoxon256%40gmail.com/events?timeMax=2023-'
+      url: 'https://www.googleapis.com/calendar/v3/calendars/'+uri_encoded_user+'/events?timeMax=2023-'
             +end_month
             +'-01T00%3A00%3A00.000Z&timeMin=2023-'
             +start_month
