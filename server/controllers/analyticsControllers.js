@@ -3,8 +3,9 @@ import ApiToken from "../models/apiToken.js"
 import Page from "../models/page.js"
 
 export const getIgAnalytics = async (req, res) => { //webook endpoints
+    const user = req.body.user //getting email from request body 
 
-    const FbToken = await ApiToken.findOne({media: "facebook"})
+    const FbToken = await ApiToken.findOne({media: "facebook", user: user })
     const todays_date = new Date()
     let current_month = (todays_date.getMonth()+1)
     let start_month = String(current_month-1).padStart(2, '0')

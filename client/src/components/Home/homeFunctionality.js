@@ -16,31 +16,25 @@ function HomeFunctionality(props) {
 
   let postEvent = async (e) => {
     e.preventDefault()
-    var cal_event = {
-      "summary": e.target[0].value,
-      "location": e.target[1].value,
-      "description": e.target[2].value,
-      "start": {
-        "dateTime": e.target[3].value+':00',
-        'timeZone': Intl.DateTimeFormat().resolvedOptions().timeZone
-      },
-      "end": {
-        "dateTime": e.target[4].value+':00',
-        'timeZone': Intl.DateTimeFormat().resolvedOptions().timeZone
+    var cal_event = {"user": current_user.email,
+      "data": {
+        "summary": e.target[0].value,
+        "location": e.target[1].value,
+        "description": e.target[2].value,
+        "start": {
+          "dateTime": e.target[3].value+':00',
+          'timeZone': Intl.DateTimeFormat().resolvedOptions().timeZone
+        },
+        "end": {
+          "dateTime": e.target[4].value+':00',
+          'timeZone': Intl.DateTimeFormat().resolvedOptions().timeZone
+        }
       }
     }
     dispatch(postCalendarEvent(cal_event))
     alert("Event Scehduled!")
   }
   
-  let getEvents = async (e) => {
-    axios.get(base_url+'/calendar/get')
-    .then(response => {
-        console.log(response.data.items)
-        setCalendarData(response.data.items)
-    })
-
-  }
     return (
         <div>
           <form onSubmit={postEvent}>

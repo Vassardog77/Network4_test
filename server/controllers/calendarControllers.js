@@ -3,9 +3,11 @@ import ApiToken from "../models/apiToken.js"
 
 export const postEvents = async (req, res) => {
 
-    const GToken = await ApiToken.findOne({media: "google"})
+    const user = req.body.user //getting email from request body 
+    const GToken = await ApiToken.findOne({media: "google", user: user })
 
-    var data = JSON.stringify(req.body) //the event from the client
+    var data = JSON.stringify(req.body.data) //the event from the client
+    
       var config = {
         method: 'post',
         url: 'https://www.googleapis.com/calendar/v3/calendars/benmoxon256@gmail.com/events',
@@ -27,11 +29,10 @@ export const postEvents = async (req, res) => {
 }
 
 
-export const getEvents = async (req, res) => { //sending email through gmail
+export const getEvents = async (req, res) => { //getting calaendar events
 
-  const user = req.body.user //getting email from request body (must be uri encoded to work)
-  const uri_encoded_user = encodeURIComponent(user)
-  console.log(user)
+  const user = req.body.user //getting email from request body 
+  const uri_encoded_user = encodeURIComponent(user) //(must be uri encoded to work)
     
   const GToken = await ApiToken.findOne({media: "google", user: user })
   const todays_date = new Date()

@@ -19,7 +19,7 @@ export const getFbLogin = async (req, res) => { //facebook login fucntion
         '&client_id='+fbvalues.client_id+
         '&client_secret='+fbvalues.secret
       }
-      await ApiToken.deleteMany({media: "facebook"})     //delete old values (add ,user:user as check)
+      await ApiToken.deleteMany({media: "facebook",user:user})     //delete old values (add ,user:user as check)
       axios(config)
       .then(async function (response) {
         const data = response.data

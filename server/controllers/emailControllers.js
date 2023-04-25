@@ -5,10 +5,10 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 export const postEmails = async (req, res) => { //sending email through gmail
-    
-    const GToken = await ApiToken.findOne({media: "google"})
-
     var data = JSON.stringify(req.body) //the email from the client
+    const user = req.body.user //getting email from request body 
+    const GToken = await ApiToken.findOne({media: "google", user: user })
+
     //console.log(data)
       var config = {
         method: 'post',

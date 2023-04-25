@@ -18,7 +18,7 @@ const GLoginUrl = base_url+'/login/g'
 const DcLoginUrl = base_url+'/login/dc'
 const emailUrl = base_url+'/email/send'
 const calendarUrl = base_url+'/calendar/post'
-const analyticsUrl = base_url+'/analytics'
+const analyticsUrl = base_url+'/analytics/ig'
 const profileUrl = base_url+'/profiles/post'
 
 

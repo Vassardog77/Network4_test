@@ -4,6 +4,7 @@ import { postEmail } from '../../actions/emailActions'
 import axios from 'axios';
 import { Buffer } from 'buffer'
 import { base_url } from '../../api';
+const current_user = JSON.parse(localStorage.getItem('user'))
 
 function EmailFunctionality(props) {
 
@@ -17,7 +18,10 @@ function EmailFunctionality(props) {
             'To: '+e.target[0].value+'\n\n'+     //setting recipient
             e.target[2].value                   //setting body text
             ).toString('base64')
-        let email = {"raw":data}
+        let email = {
+            "user":current_user.email,
+            "raw":data
+        }
         dispatch(postEmail(email))
         alert("Email Sent!")
     }

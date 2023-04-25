@@ -7,13 +7,15 @@ import { Chart as Chartjs, LineElement, CategoryScale, LinearScale, PointElement
 ArcElement, Tooltip, Legend, BarElement} from 'chart.js'
 import { base_url } from '../../api';
 import '../../App.css';
+const current_user = JSON.parse(localStorage.getItem('user'))
 Chartjs.register( LineElement, CategoryScale, LinearScale, PointElement, ArcElement, Tooltip, Legend, BarElement)
 function AnalyticsFunctionality(props) {
 
     const [Content, setContent] = useState()
 
     useEffect(() => {           
-        axios.get(base_url+'/analytics/ig')
+        axios.post(base_url+'/analytics/ig',
+        {"user": current_user.email})
         .then(response => {
             console.log(response.data.data)
             let profile_views_data = response.data.data[0].values.map(value => value.value)

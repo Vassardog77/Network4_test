@@ -4,7 +4,7 @@ import { getFbAnalytics,getIgAnalytics } from '../controllers/analyticsControlle
 
 const router = express.Router()
 
-router.get('/ig', getIgAnalytics)
-router.get('/fb', getFbAnalytics)
+router.post('/ig', getIgAnalytics)
+router.post('/fb', getFbAnalytics)
 
 export default router
