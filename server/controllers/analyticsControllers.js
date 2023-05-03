@@ -28,7 +28,6 @@ export const getIgAnalytics = async (req, res) => { //webook endpoints
     }
   
   if (end_date !== "01") {
-    console.log("work please?")
     end_date =  String(todays_date.getDate()-1).padStart(2, '0')
   }
 
@@ -48,7 +47,7 @@ export const getIgAnalytics = async (req, res) => { //webook endpoints
         res.status(200).json(response.data)
       })
       .catch(function (error) {
-        //console.log(error);
+        console.log(error);
         res.status(500).json({ error })
       });
 }

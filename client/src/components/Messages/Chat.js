@@ -44,8 +44,7 @@ function Chat({ socket, username, room }) {
           {messageList.map((messageContent) => {
             return ( //add key to below div at some point
               <div
-                className="message"
-                id={username === messageContent.author ? "you" : "other"}
+                className={username === messageContent.author ? "message_you" : "message_other"}
               >
                 <div>
                   <div className="message_content">

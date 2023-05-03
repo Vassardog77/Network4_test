@@ -736,9 +736,20 @@ font-size: 1.5rem;
 }
 
 
-.message {
+.message_you {
   background-color: #2d9afc;
   color: white;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  width: 8rem;
+  padding: 0.0005rem;
+  padding-left: 0.5rem;
+}
+
+.message_other {
+  background-color: #e9e9eb;
+  color: #646c72;
   border-radius: 1rem;
   margin-top: 1rem;
   margin-left: 1rem;
