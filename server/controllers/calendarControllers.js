@@ -7,6 +7,8 @@ export const postEvents = async (req, res) => {
     const GToken = await ApiToken.findOne({media: "google", user: user })
 
     var data = JSON.stringify(req.body.data) //the event from the client
+
+    if (GToken) {
     
       var config = {
         method: 'post',
@@ -26,6 +28,9 @@ export const postEvents = async (req, res) => {
               .catch(function(error) {
               res.status(500).json({ error })
               })
+    } else {
+      res.status(500).json("not logged in")
+    }
 }
 
 
@@ -39,6 +44,8 @@ export const getEvents = async (req, res) => { //getting calaendar events
   let current_month = (todays_date.getMonth()+1)
   let start_month = String(current_month).padStart(2, '0')
   let end_month = String(current_month+1).padStart(2, '0')
+
+  if (GToken) {
 
     var config = {
       method: 'get',
@@ -63,5 +70,8 @@ export const getEvents = async (req, res) => { //getting calaendar events
               //console.log(error)
               res.status(500).json({ error })
             })
+  } else {
+    res.status(500).json("not logged in")
+  }
 }
 

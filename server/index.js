@@ -20,6 +20,9 @@ import analyticsRoutes from './routes/analyticsRoutes.js'
 import postRoutes from './routes/postRoutes.js'
 import userRoutes from './routes/user.js'
 import profileRoutes from './routes/profileRoutes.js'
+import chatRoutes from './routes/chatRoutes.js'
+
+import { saveMessage } from './controllers/chatControllers.js'
 
 const app = express()
 
@@ -45,6 +48,7 @@ io.on("connection", (socket) => {//socket.io chat capability
     });
   
     socket.on("send_message", (data) => {
+      saveMessage(data)
       socket.to(data.room).emit("receive_message", data);
     });
   
@@ -68,6 +72,7 @@ app.use('/analytics', analyticsRoutes)
 app.use('/post', postRoutes)
 app.use('/api/user', userRoutes)
 app.use('/profiles', profileRoutes)
+app.use('/chats', chatRoutes)
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(()  => server.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`)))
