@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { base_url } from '../../api';
+const current_user = JSON.parse(localStorage.getItem('user'))
 
 function ProfileView(props) {
 
@@ -13,9 +14,10 @@ function ProfileView(props) {
     const [Img4, setImg4] = useState('')
 
     const fetchData = async () => { 
+        console.log("getting the profile")
          await axios.post(base_url+'/profiles/get',
         {
-            data:"benmoxon256@gmail.com"
+            data: current_user.email
         })
         .then((response) => {
             console.log(response.data)

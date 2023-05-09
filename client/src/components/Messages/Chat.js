@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { base_url } from "../../api";
 
@@ -7,9 +7,14 @@ function Chat({ socket, username, room }) {
   const [messageList, setMessageList] = useState([]);
   const [messageHistory, setMessageHistory] = useState([]);
   let message_blocker = false //setting message blocker to stop duplicate messages (glitch)
+  const chatWindowRef = useRef(null);
 
 
   const sendMessage = async () => {
+    let timeoutId
+    timeoutId = setTimeout(() => {
+      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+    }, 100);
     if (currentMessage !== "") {
       const messageData = {
         room: room,
@@ -36,17 +41,25 @@ function Chat({ socket, username, room }) {
             if (response.data){
               setMessageHistory(response.data)
             } else {
-            return
+              return
             }
           })
+    let timeoutId
+    timeoutId = setTimeout(() => {
+        chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+    }, 100);
+
   }, []);
 
   useEffect(() => {
-    socket.on("receive_message", (data) => { //recieving messages (message blocker made to stop duplicate message glitch)
-      //console.log(messageList)
+    socket.on("receive_message", (data) => { //recieving messages (message blocker made to stop duplicate message glitch);
       if (message_blocker === false) {
         setMessageList((list) => [...list, data]);
-        message_blocker = true
+        let timeoutId
+          timeoutId = setTimeout(() => {
+          chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+        }, 100);
+        //message_blocker = true //uncomment this line to enable blocking of every other message
       } else {
         message_blocker = false
       }
@@ -54,7 +67,7 @@ function Chat({ socket, username, room }) {
   }, [socket]);
 
   return (<>
-    <div className="chat_window">
+    <div className="chat_window" ref={chatWindowRef}>
       <div className="chat_header">
       </div>
       <div className="chat_body">

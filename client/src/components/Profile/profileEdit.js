@@ -12,7 +12,7 @@ function ProfileEdit(props) {
     const dispatch = useDispatch()      //establishing dispatch function (necessary for some reason)
     const current_user = JSON.parse(localStorage.getItem('user'))
 
-    let postEvent = async (e) => {
+    let post_profile = async (e) => {
         e.preventDefault()
         let profile = ({
             "user":current_user.email,
@@ -24,14 +24,13 @@ function ProfileEdit(props) {
             "description":e.target[5].value,
             "img4":Img4
         })
-        console.log("it should be alerting?")
         alert("Profile Updated!")
         dispatch(postProfile(profile))
     }
 
     return (
         <div className='profile_edit'>
-            <form onSubmit={postEvent}>
+            <form onSubmit={post_profile}>
                 <div>Add image(s):<FileBase type='file' multiple={false} onDone={({base64}) =>setImg1(base64)}></FileBase></div>
                 <div><textarea placeholder='Organization Name'></textarea></div>
                 <div>Add image(s):<FileBase type='file' multiple={false} onDone={({base64}) =>setImg2(base64)}></FileBase></div>

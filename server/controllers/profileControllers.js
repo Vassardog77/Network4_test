@@ -4,7 +4,7 @@ import User from "../models/userModel.js"
 export const postProfile = async (req, res) => { //sending email through gmail
 
     var data = req.body //the email from the client
-    await Profile.deleteMany({user: req.body.user})                                        //delete old profile
+    await Profile.deleteMany({user: req.body.user})             //delete old profile
 
 
     const newProfile = await new Profile(data)
@@ -21,9 +21,10 @@ export const postProfile = async (req, res) => { //sending email through gmail
 export const getProfile = async (req, res) => { //sending email through gmail
 
     var username = req.body //the username from the client
-    //console.log(req.body)
 
     const profile = await Profile.findOne({user: username.data})
+
+    console.log(username.data)
 
     try {
         res.status(201).json(profile)
