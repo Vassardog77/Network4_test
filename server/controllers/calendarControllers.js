@@ -26,10 +26,11 @@ export const postEvents = async (req, res) => {
                 res.status(200).json(data)
               })
               .catch(function(error) {
+              //console.log(error.response)
               res.status(500).json({ error })
               })
     } else {
-      res.status(500).json("not logged in")
+      res.status(401).json({ error })
     }
 }
 
@@ -67,11 +68,11 @@ export const getEvents = async (req, res) => { //getting calaendar events
               res.status(200).json(response.data)
             })
             .catch(function(error) {
-              //console.log(error)
+              console.log(error.response.data.error)
               res.status(500).json({ error })
             })
   } else {
-    res.status(500).json("not logged in")
+    res.status(401).json({ error })
   }
 }
 

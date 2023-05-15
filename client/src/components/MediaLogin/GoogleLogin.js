@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getGLogin } from '../../actions/loginActions'
 
 function GoogleLogin(props) { 
+    const [ButtonMessage, setButtonMessage] = useState("Google Login")
     const current_user = JSON.parse(localStorage.getItem('user'))
     const dispatch = useDispatch()      //establishing dispatch function (necessary for some reason)
+    let google_login = localStorage.getItem('google_login')
 
     const [searchParams] = useSearchParams()
     let access_code_pending = sessionStorage.getItem('g_code_pending')
@@ -30,11 +32,18 @@ function GoogleLogin(props) {
                 dispatch(getGLogin(config))
             }
 
+        useEffect(() => {
+            if(google_login === 'true') {
+                setButtonMessage("Logged in")
+              } else if (google_login === 'false') {
+                setButtonMessage("Google Login")
+              }
+        }, [google_login])
 
 
     return (
         <div>
-            <button onClick={login}>Google Login</button>
+            <button onClick={login}>{ButtonMessage}</button>
         </div>
     );
 }

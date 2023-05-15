@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getDcLogin } from '../../actions/loginActions'
 
 function DiscordLogin(props) {
+    const [ButtonMessage, setButtonMessage] = useState("Discord Login")
     const current_user = JSON.parse(localStorage.getItem('user'))
     const [searchParams] = useSearchParams()
     let access_code_pending = sessionStorage.getItem('disc_code_pending')
@@ -30,10 +31,18 @@ function DiscordLogin(props) {
                 dispatch(getDcLogin(config))
             }
 
+    
+            useEffect(() => {
+                if(localStorage.getItem('discord_login') === 'true') {
+                    setButtonMessage("Logged in")
+                  } else if (localStorage.getItem('discord_login') === 'false') {
+                    setButtonMessage("Discord Login")
+                  }
+            }, [setButtonMessage])
 
     return (
         <div>
-            <button onClick={login}>Discord Login</button>
+            <button onClick={login}>{ButtonMessage}</button>
         </div>
     );
 }

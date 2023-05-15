@@ -37,7 +37,7 @@ function Emailvisuals(props) {//email visuals
         <div>
             <div className = 'component_parent'>
                 <div className = 'component_header'>Email <FontAwesomeIcon icon={faEnvelope}/></div>
-                <button onClick={display2}>+ Create Post</button>
+                <button onClick={display2}>+ Send Email</button>
                 <div className = 'email_box'>
                     <div className = 'email_box_top'>
                         <div className = 'email_box_top_text'>All</div>

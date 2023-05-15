@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { base_url } from '../../api';
+import GoogleLogin from '../MediaLogin/GoogleLogin';
 
 function CalendarComponent2(props) {
 
@@ -134,6 +135,20 @@ function CalendarComponent2(props) {
             let calendar_elements = finalize_calendar(calendar_array_final)
             setCalendar(<div className='calendar_parent'>{calendar_elements}</div>)
             //console.log(Calendar)
+        })
+        .catch(error => { //catching error when note logged in
+            if (error.response.data.error.status === 401) {
+                // handle 401 (not logged in) error here
+                console.log("NOT LOGGED IN") //what calendar is set to when you arent logged in
+                setCalendar(<div className='login_message'>
+                    <div>Please log in with google to continue</div>
+                    <div className='Loginbar'><GoogleLogin></GoogleLogin></div>
+                    </div>)
+                localStorage.setItem('google_login', false)
+            } else {
+                // handle other errors here
+                console.log(error.response)
+            }
         })
         return(calendar_array)
     }

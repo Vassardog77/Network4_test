@@ -30,10 +30,10 @@ function HomeVisuals(props) {
             <div className='home_post_buttons'>
                 <button onClick={display2}>+ Create Post</button>
                 <button  onClick={display}>+ Create Event</button>
+                <div id='popup'><HomeFunctionality></HomeFunctionality></div>
+                <div id='popup2'><Form></Form></div>
             </div>
             <CalendarComponent2></CalendarComponent2>
-            <div id='popup'><HomeFunctionality></HomeFunctionality></div>
-            <div id='popup2'><Form></Form></div>
         </div>
     );
 }

@@ -30,16 +30,20 @@ export const deletePost = (id) => {axios.delete(`${postUrl}/${id}`)}
 
 export const getFbLogin = (config) => axios.post(FbLoginUrl, config)
 .then((response) => {
+    localStorage.setItem('facebook_login', true)
     return response
 })
 
 export const getGLogin = (config) => axios.post(GLoginUrl, config)
 .then((response) => {
+    localStorage.setItem('google_login', true)
     return response
 })
 
 export const getDcLogin = (config) => axios.post(DcLoginUrl, config)
 .then((response) => {
+    console.log("discord test?")
+    localStorage.setItem('discord_login', true)
     return response
 })
 

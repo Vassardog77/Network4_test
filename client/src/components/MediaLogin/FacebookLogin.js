@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getFbLogin } from '../../actions/loginActions'
 function FacebookLogin(props) { 
-
+    const [ButtonMessage, setButtonMessage] = useState("Facebook Login")
     const dispatch = useDispatch()      //establishing dispatch function (necessary for some reason)
 
 
@@ -39,12 +39,19 @@ function FacebookLogin(props) {
                     "user": current_user.email
                 }
                 dispatch(getFbLogin(config))
-
-
         }
+
+        useEffect(() => {
+            if(localStorage.getItem('facebook_login') === 'true') {
+                setButtonMessage("Logged in")
+              } else if (localStorage.getItem('facebook_login') === 'false') {
+                setButtonMessage("Facebook Login")
+              }
+        }, [setButtonMessage])
+
     return (
         <div>
-            <button onClick={login}>Facebook Login</button>
+            <button onClick={login}>{ButtonMessage}</button>
         </div>
     );
 }

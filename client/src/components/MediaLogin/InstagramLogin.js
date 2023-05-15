@@ -28,6 +28,7 @@ function InstagramLogin(props) {
         .then(response => {
             //console.log(response.data)
             setContent(<button onClick={login}>Logged In</button>)
+            localStorage.setItem('instagram_login', true)
             setPages({})
         })
     }
