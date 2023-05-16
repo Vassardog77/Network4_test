@@ -30,17 +30,39 @@ export const saveMessage = async (message) => {
 
 
 export const getMessages = async (req, res) => {
-    try {
-        //console.log(req.body.room)
-        const room = req.body.room
-        const message_history = await Chat.findOne({room: room}) //getting message history from the database
-        if(message_history){
-            res.status(200).json(message_history.messages)
-        } else {
-            res.status(200).json(null)
+
+    if(req.body.room) { //if client is asking for a specific room, provide message history
+        try {
+            //console.log(req.body.room)
+            const room = req.body.room
+            const message_history = await Chat.findOne({room: room}) //getting message history from the database
+            if(message_history){
+                res.status(200).json(message_history.messages)
+            } else {
+                res.status(200).json(null)
+            }
+        } catch (error) {
+            res.status(500).json({ error })
         }
-    } catch (error) {
-        res.status(500).json({ error })
+    } else if (req.body.user) { //if client is asking for a user, send all rooms user is involved in
+        try {
+            //console.log("user = "+req.body.user)
+            const user = req.body.user
+
+            const message_history = await Chat.find({ room: { "$regex": user } }); //getting all message histories containing user from the database
+
+            let rooms = []
+
+            message_history.forEach(element => {
+                rooms.push(element.room)
+            });
+            //console.log(rooms)
+            
+            res.status(200).json(rooms)
+
+        } catch (error) {
+            res.status(500).json({ error })
+        }
     }
 }
 

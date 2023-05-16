@@ -698,6 +698,14 @@ font-size: 1.5rem;
   overflow-anchor: visible;
 }
 
+.new_chat_creator {
+  margin-top: 10%;
+}
+
+.chat_window button {
+  margin-left: 5rem;
+}
+
 .join_chat_container {
   height: 40rem;
   width: 20rem;
@@ -755,8 +763,12 @@ font-size: 1.5rem;
   margin-left: 1rem;
   width: 8rem;
   padding: 0.0005rem;
-  padding-left: 0.5rem;
-  
+  padding-left: 0.5rem; 
+}
+
+.message_author {
+  font-size: xx-small;
+  margin-left: 3%;
 }
 
 #popup {

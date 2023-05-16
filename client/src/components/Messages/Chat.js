@@ -73,8 +73,8 @@ function Chat({ socket, username, room }) {
       <div className="chat_body">
         <div className="message_container">{
         //----------------------populate message histroy-----------------------
-            messageHistory.map((messageContent) => {
-            return ( //add key to below div at some point
+            messageHistory.map((messageContent) => {//add key to below div at some point
+            return (<>
               <div
                 className={username === messageContent.author ? "message_you" : "message_other"}
               >
@@ -84,12 +84,13 @@ function Chat({ socket, username, room }) {
                   </div>
                 </div>
               </div>
-            );
+              <div className="message_author">{messageContent.author}</div>
+              </>);
           })
             //----------------------populate message histroy-----------------------
         }
-          {messageList.map((messageContent) => {
-            return ( //add key to below div at some point
+          {messageList.map((messageContent) => {//add key to below div at some point
+            return (<>
               <div
                 className={username === messageContent.author ? "message_you" : "message_other"}
               >
@@ -99,7 +100,8 @@ function Chat({ socket, username, room }) {
                   </div>
                 </div>
               </div>
-            );
+              <div className="message_author">{messageContent.author}</div>
+              </>);
           })}
         </div>
       </div>

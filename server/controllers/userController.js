@@ -49,6 +49,11 @@ export const signupUser = async (req, res) => {
 export const getUsers = async (req, res) => {
   try {
     const users = await User.find()
+
+    users.forEach(element => {
+      element.profile_pic = ""
+    });
+
     res.status(200).json(users)
   } catch (error) {
     

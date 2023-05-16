@@ -13,11 +13,12 @@ function Form(props) {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(createPost(postData))
-        alert("Profile Updated!")
+        alert("Post Created!")
+        setPostData({ creator: current_user.email, message: '', tags: '', selectedFile: '' });
     }
 
     const clear = () => {
-        console.log('delete post (eventually)')
+        setPostData({ creator: current_user.email, message: '', tags: '', selectedFile: '' });
     }
     return (
         <div>
@@ -28,7 +29,7 @@ function Form(props) {
                     <textarea  placeholder='Message' value={postData.message}onChange={(e) => setPostData({ ...postData, message: e.target.value })}></textarea>
                     <textarea  placeholder='Tags' value={postData.tags}onChange={(e) => setPostData({ ...postData, tags: e.target.value })}></textarea>
                     <button>Submit</button>
-                    <button onClick={clear}>Clear</button>
+                    <button type="button" onClick={clear}>Clear</button>
                 </form>
         </div>
     );
