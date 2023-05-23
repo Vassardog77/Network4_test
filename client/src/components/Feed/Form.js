@@ -5,6 +5,7 @@ import { createPost } from '../../actions/posts'
 import axios from 'axios';
 import InstagramLogin from "../MediaLogin/InstagramLogin"
 import FacebookLogin from "../MediaLogin/FacebookLogin"
+import { base_url } from '../../api';
 function Form(props) {
     let [Content, setContent] = useState()
     const [instagram_login, setInstagramLogin] = useState(localStorage.getItem('instagram_login'));
@@ -32,7 +33,7 @@ function Form(props) {
             alert("Post Created!")
             setPostData({ creator: current_user.email, message: '', tags: '', selectedFile: '' });
         } else if (MediaSelector === "Instagram") { //if its set to instagram, post to instagram
-            axios.post("http://localhost:5000/post/ig1", postData)
+            axios.post(base_url+"/post/ig1", postData)
             .then((response) => {
                 console.log(JSON.stringify(response.data));
                 setCreationId(response.data.id)
@@ -53,7 +54,7 @@ function Form(props) {
             return
         }
         //console.log("postsing "+CreationId)
-        axios.post("http://localhost:5000/post/ig2", {
+        axios.post(base_url+"/post/ig2", {
             "creation_id":CreationId,
             "user": current_user.email
         })
