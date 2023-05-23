@@ -1,9 +1,11 @@
 import express from 'express'
 
-import { postFbPosts } from '../controllers/postControllers.js'
+import { postFbPosts, postIgPosts, prepIgPosts } from '../controllers/postControllers.js'
 
 const router = express.Router()
 
-router.post('/', postFbPosts)
+router.post('/fb', postFbPosts)
+router.post('/ig1', prepIgPosts)
+router.post('/ig2', postIgPosts)
 
 export default router

@@ -805,8 +805,10 @@ font-size: 1.5rem;
   position: absolute;
   margin-top: 2.5%;
   margin-left: -30%;
-  width: 10rem;
+  width: 15rem;
   padding: 2rem;
+  padding-bottom: 5rem;
+  padding-right: 7rem;
   background-color: white;
   border-radius: 0.5rem;
   box-shadow: 1rem 1rem 2em rgba(0, 0, 0, 0.1);
@@ -862,6 +864,8 @@ font-size: 1.5rem;
   margin-left: 0rem;
   width: 20rem;
   padding: 2rem;
+  padding-bottom: 5rem;
+  padding-right: 7rem;
   background-color: white;
   border-radius: 0.5rem;
   box-shadow: 1rem 1rem 2em rgba(0, 0, 0, 0.1);
@@ -918,4 +922,29 @@ font-size: 1.5rem;
   font-size: 15pt;
   margin-top: 10%;
   padding-bottom: 20%;
+}
+
+.media_selector_button {
+  font-size: 15px;
+  margin: 5%;
+  font-weight: bold;
+}
+
+.media_selector_button button {
+  font-size: 12px;
+  padding: 2%;
+  margin: 5%;
+}
+
+.insta_login_message {
+  color: red;
+  font-size: small;
+  margin-left: 10%;
+  margin-top: 2%;
+  background-color: white;
+  padding: 10px;
+  border-radius: 0.5rem;
+  box-shadow: 1rem 1rem 2em rgba(0, 0, 0, 0.1);
+  outline-style: solid;
+  outline-color: #dbdbdb;
 }

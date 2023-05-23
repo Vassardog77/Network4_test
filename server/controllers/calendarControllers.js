@@ -68,7 +68,7 @@ export const getEvents = async (req, res) => { //getting calaendar events
               res.status(200).json(response.data)
             })
             .catch(function(error) {
-              console.log(error.response.data.error)
+              //console.log(error.response.data.error)
               res.status(500).json({ error })
             })
   } else {

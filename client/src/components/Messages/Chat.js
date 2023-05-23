@@ -12,7 +12,7 @@ function Chat({ socket, username, room }) {
 
   const sendMessage = async () => {
     let timeoutId
-    timeoutId = setTimeout(() => {
+    timeoutId = setTimeout(() => { //making the window scroll down to bottom (using setTimeout so that it happens after message is sent)
       chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
     }, 100);
     if (currentMessage !== "") {

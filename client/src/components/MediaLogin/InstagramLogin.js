@@ -46,6 +46,10 @@ function InstagramLogin(props) {
     return (
         <div>
             {Content}
+            <div className='insta_login_message'>
+                <div>IMPORTANT NOTE, Instagram login will only work for an Instagram business account connected to a Facebook page on your Facebook account</div>
+                <a href={`${process.env.PUBLIC_URL}/files/insta_connect.pdf`} download>If you don't know how to do that, Download instructions here</a>
+            </div>
         </div>
     );
 }
