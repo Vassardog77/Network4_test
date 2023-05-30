@@ -20,6 +20,7 @@ const emailUrl = base_url+'/email/send'
 const calendarUrl = base_url+'/calendar/post'
 const analyticsUrl = base_url+'/analytics/ig'
 const profileUrl = base_url+'/profiles/post'
+const commentUrl = base_url+'/comment'
 
 
 
@@ -65,5 +66,11 @@ export const getAnalytics = (config) => axios.get(analyticsUrl, config)
 
 export const postProfile = (config) => axios.post(profileUrl, config)
 .then((response) => {
+    return response
+})
+
+export const createComment = (config) => axios.post(commentUrl, config)
+.then((response) => {
+    //console.log(response)
     return response
 })

@@ -21,6 +21,7 @@ import postRoutes from './routes/postRoutes.js'
 import userRoutes from './routes/user.js'
 import profileRoutes from './routes/profileRoutes.js'
 import chatRoutes from './routes/chatRoutes.js'
+import commentRoutes from './routes/commentRoutes.js'
 
 import { saveMessage } from './controllers/chatControllers.js'
 
@@ -73,6 +74,7 @@ app.use('/post', postRoutes)
 app.use('/api/user', userRoutes)
 app.use('/profiles', profileRoutes)
 app.use('/chats', chatRoutes)
+app.use('/comment', commentRoutes)
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(()  => server.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`)))
