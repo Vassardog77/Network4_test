@@ -3,7 +3,9 @@ import io from "socket.io-client";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Chat from "./Chat";
+import { useDispatch } from 'react-redux';
 import { base_url } from "../../api";
+import { deleteNotification } from '../../actions/notificationActions' 
 const socket = io.connect(base_url);
 const current_user = JSON.parse(localStorage.getItem('user'))
 
@@ -15,6 +17,8 @@ function MessageTest() {
   const [newChat, setnewChat] = useState(false);
   const [emailArray, setemailArray] = useState([current_user.email]);
   const [emailList, setemailList] = useState("");
+
+  const dispatch = useDispatch();
 
   const add_to_chat = (email) => {
     setShowChat(false)//getting rid of the current chat
@@ -32,22 +36,34 @@ function MessageTest() {
 
 
   const joinRoom = (email_list) => {
-    setShowChat(false)//getting rid of the current chat
-    setemailList(""); // Resetting emailList to an empty string
-    setemailArray([current_user.email]); // Resetting emailArray to an array containing the current user's email
+    setShowChat(false)
+    setemailList("");
+    setemailArray([current_user.email]);
 
     let timeoutId
     timeoutId = setTimeout(() => {
-      //console.log(emailArray)
-      //console.log(emailList)
-      let room = email_list
-      console.log("current chat room is "+room)
-      setRoom(room)//necessary because room is used to below to pass to chat component
-      socket.emit("join_room", room);
-      setShowChat(true);
+        let room = email_list;
+        console.log("current chat room is "+room)
+        setRoom(room)
+        socket.emit("join_room", room);
+
+        let notifications = JSON.parse(localStorage.getItem('notifications'));
+
+        // Check if there is a notification for the current room and delete it.
+        let newNotifications = notifications ? notifications.filter((notification) => {
+          if (notification.type === 'message' && notification.content.room === room) {
+              dispatch(deleteNotification({user: current_user.email, unreads: notification})); //notification action
+              return false; // This notification will not be included in newNotifications.
+          }
+          return true; // Keep the notification in newNotifications.
+        }) : [];
+
+        //console.log(newNotifications)
+        // Save the new notifications back to local storage.
+        localStorage.setItem('notifications', JSON.stringify(newNotifications));
+
+        setShowChat(true);
     }, 1);
-
-
   }
 
 
@@ -55,7 +71,7 @@ function MessageTest() {
     axios.get(base_url+'/api/user/get') //getting all users to display 
     .then(response => {
       let user_array = []
-        console.log(response.data)
+        //console.log(response.data)
         response.data.forEach(async user => {
           user_array.push(<div key={user.email}><button onClick={() => add_to_chat(user.email)}>{user.email}</button></div>)
         })
@@ -69,7 +85,7 @@ function MessageTest() {
       "user": current_user.email
     })
         .then(response => {
-            console.log(response.data)
+            //console.log(response.data)
             let roomlist_array = []
         //console.log(response.data)
         response.data.forEach(async room => {

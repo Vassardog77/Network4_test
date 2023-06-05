@@ -948,3 +948,41 @@ font-size: 1.5rem;
   outline-style: solid;
   outline-color: #dbdbdb;
 }
+
+.notification-icon {
+  position: relative;
+  display: inline-block;
+  font-size: 25px;
+  margin-right: 15px;
+}
+
+.notification-count {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+.notifications-dropdown {
+  background-color: white;
+  border: 1px solid #ccc;
+  position: absolute;
+  width: 200px;
+  top: 50px;
+  right: 0;
+  z-index: 1;
+}
+
+.notification-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}

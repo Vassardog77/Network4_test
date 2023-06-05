@@ -14,7 +14,7 @@ export const getFbMessages = async (req, res) => { //getting messages from fb pa
     }
 }
 
-export const getIgMessages = async (req, res) => { //getting messages from fb page
+export const getIgMessages = async (req, res) => { //getting messages from ig page
     try {
         const PageToken = await ApiToken.findOne({media: "instagram"})
         const apiRes = await needle('get', `https://graph.facebook.com/v15.0/101989732541801/conversations?fields=unread_count,snippet,messages{message}&platform=instagram&access_token=`+PageToken.access_token)

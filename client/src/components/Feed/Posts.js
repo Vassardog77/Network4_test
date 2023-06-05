@@ -4,6 +4,7 @@ import { deletePost } from '../../actions/posts'
 import { createComment } from '../../actions/commentActions' 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { sendNotification } from '../../actions/notificationActions' 
 const current_user = JSON.parse(localStorage.getItem('user'))
 
 function Post({post, current_user, dispatch}) { 
@@ -14,6 +15,14 @@ function Post({post, current_user, dispatch}) {
         event.preventDefault();
         const newComment = {id: post._id, user: current_user.email, comment: comment};
         dispatch(createComment(newComment));
+        //creating new notification
+        console.log("sending notification")
+        dispatch(sendNotification({
+            type : "comment",
+            recipient : [post.creator],
+            sender : current_user.email,
+            content : {message: comment}
+          }))
         setPostComments([...postComments, newComment]);
         setComment('');
         console.log(newComment);

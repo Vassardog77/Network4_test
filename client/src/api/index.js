@@ -9,8 +9,8 @@ if (window.location.origin.includes("localhost")) {
      baseurl = "https://api.network770.com" //port changed to 80
 }
 export const base_url = baseurl
-console.log("working 2")
-console.log("base url being used is "+base_url)
+
+//console.log("base url being used is "+base_url)
 
 const postUrl = base_url+'/posts' //the specific routes that the client is accessing in the server
 const FbLoginUrl = base_url+'/login/fb'
@@ -21,6 +21,8 @@ const calendarUrl = base_url+'/calendar/post'
 const analyticsUrl = base_url+'/analytics/ig'
 const profileUrl = base_url+'/profiles/post'
 const commentUrl = base_url+'/comment'
+const notificationUrl = base_url+'/notification/post'
+const notificationUrl2 = base_url+'/notification/delete'
 
 
 
@@ -58,7 +60,7 @@ export const postCalendarEvent = (config) => axios.post(calendarUrl, config)
     return response
 })
 
-export const getAnalytics = (config) => axios.get(analyticsUrl, config)
+export const getAnalytics = (config) => axios.post(analyticsUrl, config) //not actually being used
 .then((response) => {
     //console.log(response)
     return response
@@ -70,6 +72,18 @@ export const postProfile = (config) => axios.post(profileUrl, config)
 })
 
 export const createComment = (config) => axios.post(commentUrl, config)
+.then((response) => {
+    //console.log(response)
+    return response
+})
+
+export const sendNotification = (config) => axios.post(notificationUrl, config)
+.then((response) => {
+    //console.log(response)
+    return response
+})
+
+export const deleteNotification = (config) => axios.post(notificationUrl2, config)
 .then((response) => {
     //console.log(response)
     return response

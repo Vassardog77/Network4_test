@@ -1,13 +1,24 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { base_url } from "../../api";
+import { useSelector, useDispatch } from 'react-redux'
+import { sendNotification } from '../../actions/notificationActions' 
+const current_user = JSON.parse(localStorage.getItem('user'))
+
 
 function Chat({ socket, username, room }) {
+  const dispatch = useDispatch();
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
   const [messageHistory, setMessageHistory] = useState([]);
   let message_blocker = false //setting message blocker to stop duplicate messages (glitch)
   const chatWindowRef = useRef(null);
+
+  // convert the room string to an array and trim the whitespace
+  let roomEmails = room.split(",").map(email => email.trim());
+
+  // filter out the current user's email
+  let recipient = roomEmails.filter(email => email !== current_user.email);
 
 
   const sendMessage = async () => {
@@ -29,6 +40,14 @@ function Chat({ socket, username, room }) {
       await socket.emit("send_message", messageData);
       setMessageList((list) => [...list, messageData]);
       setCurrentMessage("");
+      //adding notification information
+      //console.log("sending message")
+      dispatch(sendNotification({
+        type : "message",
+        recipient : recipient,
+        sender : current_user.email,
+        content : messageData
+      }))
     }
   };
 
