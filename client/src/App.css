@@ -182,14 +182,14 @@ body {
 
 .Topbar {
   position: absolute;
-  margin-left: 20rem;
+  margin-left: 20%;
   padding-left: 1rem;
   margin-top: 3rem;
   list-style: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 77rem;
+  width: 77%;
 }
 
 .Topbar a {
@@ -566,8 +566,8 @@ font-size: 1.5rem;
 .calendar_element {
   padding-left: 0.5rem;
   padding-top: 0.5rem;
-  width: 10rem;
-  height: 10rem;
+  width: 13.5%;
+  height: 18%;
   outline-style: solid;
   outline-width: 0.01rem;
   outline-color: #dbdbdb;
@@ -671,7 +671,7 @@ font-size: 1.5rem;
   display: flex;
   justify-content: space-around;
   margin-left: 2rem;
-  width: 70rem;
+  width: 90%;
   margin-top: -4rem;
   margin-bottom: 0rem;
 }

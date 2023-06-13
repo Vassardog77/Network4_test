@@ -8,7 +8,10 @@ function InstagramLogin(props) {
     const [Login,setLogin] = useState(false)
 
     let login = () => {                                         //(1st function run) getting facebook pages and related info
-        axios.get(base_url+'/pages?')
+        axios.post(base_url+'/pages?',
+        {
+            "user": current_user.email
+        })
         .then(response => {
             setPages(response.data)
             setLogin(true)

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faListUl } from '@fortawesome/free-solid-svg-icons'
@@ -11,6 +11,7 @@ const current_user = JSON.parse(localStorage.getItem('user'))
 
 function Feed() {
     const dispatch = useDispatch()
+    const popupRef = useRef();
 
     useEffect(() => {
         dispatch(getPosts())
@@ -37,6 +38,22 @@ function Feed() {
         }, 1);
     }, [dispatch]);
 
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (popupRef.current && !popupRef.current.contains(event.target)) {
+                var x = document.getElementById("popup4");
+                if (x.style.display === "block") {
+                    x.style.display = "none";
+                }
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
     function display2() {
         var x = document.getElementById("popup4");
         if (x.style.display === "block") {
@@ -51,7 +68,7 @@ function Feed() {
             <div className='component_parent'>
                 <div className = 'component_header'>Feed <FontAwesomeIcon icon={faListUl}/></div>
                 <button onClick={display2}>+ Create Post</button>
-                <div id='popup4'><Form></Form></div>
+                <div id='popup4' ref={popupRef}><Form></Form></div>
                 <Posts></Posts>
             </div>
         </div>

@@ -39,6 +39,7 @@ function Form(props) {
                 setCreationId(response.data.id)
                 alert("Post Created!")
                 setPostData({ creator: current_user.email, message: '', tags: '', selectedFile: '' });
+                sessionStorage.setItem('closePopups', 'true');
               })
               .catch((error) => {
                 alert("Error Creating Post. \nPlease make sure that you are logged in and try again")

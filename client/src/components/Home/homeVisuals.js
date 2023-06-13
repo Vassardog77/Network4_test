@@ -1,37 +1,61 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import CalendarComponent2 from './calendarComponent2';
 import HomeFunctionality from './homeFunctionality'
 import LoginList from '../MediaLogin/LoginList';
 import Form from '../Feed/Form';
 
 function HomeVisuals(props) {
+    const popupRef = useRef();
+    const popup2Ref = useRef();
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (popupRef.current && !popupRef.current.contains(event.target)) {
+                var x = document.getElementById("popup");
+                if (x.style.display === "block") {
+                    x.style.display = "none";
+                }
+            }
+
+            if (popup2Ref.current && !popup2Ref.current.contains(event.target)) {
+                var y = document.getElementById("popup2");
+                if (y.style.display === "block") {
+                    y.style.display = "none";
+                }
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     function display() {
         var x = document.getElementById("popup");
         if (x.style.display === "block") {
             x.style.display = "none";
-          } else {
+        } else {
             x.style.display = "block";
-          }
         }
-      
+    }
 
-      function display2() {
+    function display2() {
         var x = document.getElementById("popup2");
         if (x.style.display === "block") {
             x.style.display = "none";
-          } else {
+        } else {
             x.style.display = "block";
-          }
-      }
+        }
+    }
 
     return (
         <div className='home'>
             <div className='home_post_buttons'>
                 <button onClick={display2}>+ Create Post</button>
                 <button  onClick={display}>+ Create Event</button>
-                <div id='popup'><HomeFunctionality></HomeFunctionality></div>
-                <div id='popup2'><Form></Form></div>
+                <div id='popup' ref={popupRef}><HomeFunctionality></HomeFunctionality></div>
+                <div id='popup2' ref={popup2Ref}><Form></Form></div>
             </div>
             <CalendarComponent2></CalendarComponent2>
         </div>

@@ -4,6 +4,6 @@ import { getFbPages } from '../controllers/pageControllers.js'
 
 const router = express.Router()
 
-router.get('/', getFbPages)
+router.post('/', getFbPages)
 
 export default router

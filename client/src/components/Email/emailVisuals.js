@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInbox,faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
@@ -7,6 +7,7 @@ import EmailFunctionality from './emailFunctionality';
 
 
 function Emailvisuals(props) {//email visuals
+    const popupRef = useRef();
 
     const emails = [
         { name: 'Tejaswi', date: '4/11/23', subject: 'Re: AME 220', message:'Thank you for the quick response! I am only available between 10am and noon tomorrow,'},
@@ -22,15 +23,30 @@ function Emailvisuals(props) {//email visuals
             console.log(response.data)})
         }, [])
 
-        function display2() {
-            var x = document.getElementById("popup3");
-            if (x.style.display === "block") {
-              x.style.display = "none";
-            } else {
-              x.style.display = "block";
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (popupRef.current && !popupRef.current.contains(event.target)) {
+                var x = document.getElementById("popup3");
+                if (x.style.display === "block") {
+                    x.style.display = "none";
+                }
             }
-          }
+        }
 
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    function display2() {
+        var x = document.getElementById("popup3");
+        if (x.style.display === "block") {
+          x.style.display = "none";
+        } else {
+          x.style.display = "block";
+        }
+    }
 
 // Email Front End  
     return (
@@ -86,7 +102,7 @@ function Emailvisuals(props) {//email visuals
                     </div>
                 </div>
             </div>
-            <div id='popup3'><EmailFunctionality></EmailFunctionality></div>            
+            <div id='popup3' ref={popupRef}><EmailFunctionality></EmailFunctionality></div>            
         </div>
     );
 }
