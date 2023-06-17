@@ -5,7 +5,7 @@ import axios from 'axios'
 export const getFbPages = async (req, res) => { //getting fb pages for getting ig login
     
     const FbToken = await ApiToken.findOne({media: "facebook", user: req.body.user})
-    await Page.deleteMany({media: "facebook"})                                        //delete old values
+    await Page.deleteMany({media: "facebook", user: req.body.user})                                        //delete old values
     console.log(req.body.user)
 
     var config = {                                                  //setting config variables
