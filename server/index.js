@@ -9,13 +9,13 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 mongoose.set('strictQuery', true);
 
+import webhookRoutes from './routes/webhookRoutes.js'
 import postRoutes2 from './routes/posts.js'
 import loginRoutes from './routes/loginRoutes.js'
 import messageRoutes from './routes/messageRoutes.js'
 import pageRoutes from './routes/pageRoutes.js'
 import emailRoutes from './routes/emailRoutes.js'
 import calendarRoutes from './routes/calendarRoutes.js'
-import webhookRoutes from './routes/webhookRoutes.js'
 import analyticsRoutes from './routes/analyticsRoutes.js'
 import postRoutes from './routes/postRoutes.js'
 import userRoutes from './routes/user.js'
@@ -63,13 +63,13 @@ app.use(bodyParser.json({ limit: '30mb', extended: true }))
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 
+app.use('/webhook', webhookRoutes)
 app.use('/posts', postRoutes2)
 app.use('/login', loginRoutes)
 app.use('/messages', messageRoutes)
 app.use('/pages', pageRoutes)
 app.use('/email', emailRoutes)
 app.use('/calendar', calendarRoutes)
-app.post('/webhook', webhookRoutes)
 app.use('/analytics', analyticsRoutes)
 app.use('/post', postRoutes)
 app.use('/api/user', userRoutes)
