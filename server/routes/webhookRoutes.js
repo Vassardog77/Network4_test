@@ -4,6 +4,6 @@ import { postWebhooks } from '../controllers/webhookControllers.js'
 
 const router = express.Router()
 
-router.post('/', postWebhooks)
+router.get('/', postWebhooks)
 
 export default router
