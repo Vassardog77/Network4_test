@@ -1,6 +1,7 @@
 import axios from "axios"
 
 export const postWebhooks = async (req, res) => { // webhook endpoints
+    console.log(req)
     // parse the query parameters from the request
     let mode = req.query["hub.mode"];
     let token = req.query["hub.verify_token"];
