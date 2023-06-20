@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const postWebhooks = (req, res) => {
+export const getWebhooks = (req, res) => {
     console.log(req)
     // Parse the query parameters
     let mode = req.query['hub.mode'];
