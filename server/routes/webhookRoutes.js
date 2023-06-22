@@ -1,9 +1,9 @@
 import express from 'express'
 
-import { postWebhooks } from '../controllers/webhookControllers.js'
+import { getWebhooks } from '../controllers/webhookControllers.js'
 
 const router = express.Router()
 
-router.get('/', postWebhooks)
+router.get('/', getWebhooks)
 
 export default router
