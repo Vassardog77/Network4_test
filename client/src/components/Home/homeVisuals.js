@@ -13,14 +13,18 @@ function HomeVisuals(props) {
             if (popupRef.current && !popupRef.current.contains(event.target)) {
                 var x = document.getElementById("popup");
                 if (x.style.display === "block") {
-                    x.style.display = "none";
+                    setTimeout(function(){
+                        x.style.display = "none";
+                    }, 100);
                 }
             }
 
             if (popup2Ref.current && !popup2Ref.current.contains(event.target)) {
                 var y = document.getElementById("popup2");
                 if (y.style.display === "block") {
-                    y.style.display = "none";
+                    setTimeout(function(){
+                        y.style.display = "none";
+                    }, 100);
                 }
             }
         }

@@ -34,8 +34,9 @@ export const postEmails = async (req, res) => { //sending email through gmail
 
 
 export const getEmails = async (req, res) => { //sending email through gmail
+  let user = req.body.user
     
-  const GToken = await ApiToken.findOne({media: "google"})
+  const GToken = await ApiToken.findOne({media: "google", user: user})
 
 
   let email_callback = async(email_array, return_array) => {
@@ -52,7 +53,7 @@ export const getEmails = async (req, res) => { //sending email through gmail
       await axios(config)
       .then(async(response) => {
         await return_array.push(response.data)
-        console.log("return array = "+return_array)
+        //console.log("return array = "+return_array)
 
       })
       .catch(function(error) {
@@ -61,9 +62,12 @@ export const getEmails = async (req, res) => { //sending email through gmail
       })
 
     })
+    let timeoutId
+    timeoutId = setTimeout(() => {
       console.log("sending to client now")
       console.log(return_array)
-      return await(return_array)
+      return(return_array)
+    }, 1000);
   }
   
 
@@ -81,6 +85,7 @@ export const getEmails = async (req, res) => { //sending email through gmail
             .then(function(response) {
               //console.log(response)
               let return_array = []
+              console.log("emails="+ email_callback(response.data.messages, return_array))
               res.status(200).json(email_callback(response.data.messages, return_array))
             })
             .catch(function(error) {

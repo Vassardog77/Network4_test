@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import CustomLink from "../../customComponents/CustomLink";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,9 +10,9 @@ import Notifications from './Notifications';
 export default function NavBar() {
     const { logout } = useLogout();
     const current_user = JSON.parse(localStorage.getItem('user'))
+    const notificationRef = useRef();
 
     const [notifications, setNotifications] = useState([]);
-    const [showNotifications, setShowNotifications] = useState(false);
 
     useEffect(() => {
         axios.post(base_url+'/notification/get',
@@ -25,10 +25,31 @@ export default function NavBar() {
             .catch(error => {
                 console.error('Error fetching notifications:', error);
             });
+
+        function handleClickOutside(event) {
+            if (notificationRef.current && !notificationRef.current.contains(event.target)) {
+                var x = document.getElementById("notificationPopup");
+                if (x.style.display === "block") {
+                    setTimeout(function(){
+                        x.style.display = "none";
+                    }, 100);
+                }
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
     }, []);
 
-    const handleBellClick = () => {
-        setShowNotifications(!showNotifications);
+    function displayNotification() {
+        var x = document.getElementById("notificationPopup");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
     }
 
     let notificationCount = JSON.parse(localStorage.getItem('notifications'))?.length || 0;
@@ -37,10 +58,12 @@ export default function NavBar() {
         <div className="Topbar">
             <CustomLink to="/social-add">Add Social Media Accounts +</CustomLink>
             <div>
-                <div className="notification-icon" onClick={handleBellClick}>
-                    <FontAwesomeIcon icon={faBell}/>
+                <div className="notification-icon" onClick={displayNotification}>
+                    <FontAwesomeIcon icon={faBell} style={{ fontSize: '1.5vw'}}/>
                     {notificationCount > 0 && <span className="notification-count">{notificationCount}</span>}
-                    {showNotifications && <Notifications />}
+                    <div id='notificationPopup' ref={notificationRef}>
+                        <Notifications />
+                    </div>
                 </div>
                 <img src={current_user.profile_pic} alt=""></img>
                 <button onClick={logout}>Log Out</button>

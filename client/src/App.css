@@ -63,6 +63,7 @@ body {
 
 .nav ul div {
   margin-right: 1vw;
+
 }
 
 .nav a {
@@ -280,7 +281,7 @@ body {
 }
 
 .email_box_top {
-  margin-top: 5vw;
+  margin-top: 1vw;
   position: relative;
   width: 75vw;
   height: 3vw;
@@ -685,6 +686,24 @@ font-size: 1.5vw;
   padding-right: 0.7vw;
 }
 
+.create_buttons button {
+  font-size: 1.5vw;
+  border-radius: 1vw;
+  outline-width: 0.15vw;
+  padding: 0.6vw;
+  padding-right: 0.7vw;
+  margin: 1vw;
+}
+
+.previous_chat_parent {
+  width: 18vw;
+  outline-color: #dbdbdb;
+  border-radius: 2vw;
+  margin-left: -1vw;
+  padding: 1vw;
+  outline-style: solid;
+}
+
 .chat_window_parent {
   width: 70vw;
   display: flex;
@@ -747,6 +766,7 @@ font-size: 1.5vw;
 
 .message_you {
   background-color: #2d9afc;
+  font-size: 1vw;
   color: white;
   border-radius: 1vw;
   margin-top: 1vw;
@@ -758,6 +778,7 @@ font-size: 1.5vw;
 
 .message_other {
   background-color: #e9e9eb;
+  font-size: 1vw;
   color: #646c72;
   border-radius: 1vw;
   margin-top: 1vw;
@@ -829,7 +850,7 @@ font-size: 1.5vw;
 #popup3 {
   display: none;
   position: absolute;
-  margin-top: 5vw;
+  margin-top: 7vw;
   margin-left: -2vw;
   width: 20vw;
   padding: 2vw;
@@ -961,11 +982,11 @@ font-size: 1.5vw;
   background-color: red;
   color: white;
   border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 12px;
+  padding: 0.2vw 0.5vw;
+  font-size: 1vw;
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: -0.8vw;
+  right: -0.8vw;
 }
 
 .notifications-dropdown {
@@ -986,4 +1007,8 @@ font-size: 1.5vw;
 
 .notification-item:last-child {
   border-bottom: none;
+}
+
+#notificationPopup {
+  display: none;
 }

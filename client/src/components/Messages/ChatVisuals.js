@@ -43,7 +43,7 @@ function MessageTest() {
     let timeoutId
     timeoutId = setTimeout(() => {
         let room = email_list;
-        console.log("current chat room is "+room)
+        //console.log("current chat room is "+room)
         setRoom(room)
         socket.emit("join_room", room);
 
@@ -102,8 +102,10 @@ function MessageTest() {
   return (
     <div className="chat_window_parent">
       <div className="join_chat_container">
-          <div>Previous Chats:</div>
-          {Roomlist}
+          <div className="previous_chat_parent">
+            <div>Previous Chats:</div>
+            {Roomlist}
+          </div>
           {!newChat ? 
           (<div className="new_chat_creator"><button onClick={() => setnewChat(true)}>Create New Chat?</button></div>) : 
           (<><div className="new_chat_creator">Select Users:</div>{joinContent}</>)}
@@ -111,9 +113,9 @@ function MessageTest() {
       {!showChat ? (
         <div className="chat_window">
           <div>{emailList}</div>
-          <div>
+          {newChat && <div>
             <button onClick={() => joinRoom(emailList)}>Create Chat</button>
-          </div>
+          </div>}
         </div>
       ) : (<>
         

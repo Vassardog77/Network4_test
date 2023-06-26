@@ -4,7 +4,7 @@ import { faInbox,faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 import { base_url } from '../../api';
 import EmailFunctionality from './emailFunctionality';
-
+const current_user = JSON.parse(localStorage.getItem('user'))
 
 function Emailvisuals(props) {//email visuals
     const popupRef = useRef();
@@ -18,7 +18,9 @@ function Emailvisuals(props) {//email visuals
     ]
 
     useEffect(() => { 
-        axios.get(base_url+'/email/list')
+        axios.post(base_url+'/email/list', {
+            user: current_user.email
+        })
         .then(response => {
             console.log(response.data)})
         }, [])
@@ -28,7 +30,9 @@ function Emailvisuals(props) {//email visuals
             if (popupRef.current && !popupRef.current.contains(event.target)) {
                 var x = document.getElementById("popup3");
                 if (x.style.display === "block") {
-                    x.style.display = "none";
+                    setTimeout(function(){
+                        x.style.display = "none";
+                    }, 100);
                 }
             }
         }
@@ -53,7 +57,7 @@ function Emailvisuals(props) {//email visuals
         <div>
             <div className = 'component_parent'>
                 <div className = 'component_header'>Email <FontAwesomeIcon icon={faEnvelope}/></div>
-                <button onClick={display2}>+ Send Email</button>
+                <div className='create_buttons'><button onClick={display2}>+ Send Email</button></div>
                 <div className = 'email_box'>
                     <div className = 'email_box_top'>
                         <div className = 'email_box_top_text'>All</div>

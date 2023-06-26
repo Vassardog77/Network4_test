@@ -43,7 +43,9 @@ function Feed() {
             if (popupRef.current && !popupRef.current.contains(event.target)) {
                 var x = document.getElementById("popup4");
                 if (x.style.display === "block") {
-                    x.style.display = "none";
+                    setTimeout(function(){
+                        x.style.display = "none";
+                    }, 100);
                 }
             }
         }
@@ -67,7 +69,7 @@ function Feed() {
         <div>
             <div className='component_parent'>
                 <div className = 'component_header'>Feed <FontAwesomeIcon icon={faListUl}/></div>
-                <button onClick={display2}>+ Create Post</button>
+                <div className='create_buttons'><button onClick={display2}>+ Create Post</button></div>
                 <div id='popup4' ref={popupRef}><Form></Form></div>
                 <Posts></Posts>
             </div>
