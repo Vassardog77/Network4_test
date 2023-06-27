@@ -15,7 +15,7 @@ const Notifications = () => {
             ) : (
                 [...notifications].reverse().map((notification, index) => (
                     <div key={index} className="notification-item">
-                        You got a {notification.type} from {notification.sender}
+                        New {notification.type} from {notification.sender.split('@')[0]}: "{notification.content.message.length > 20 ? notification.content.message.slice(0, 20) + '...' : notification.content.message}"
                     </div>
                 ))
             )}

@@ -32,7 +32,7 @@ function Post({post, current_user, dispatch}) {
         <div className='feed_item' key={post._id}>
             <div className='feed_title'>
                 <img src={post.profile_pic} alt=""></img>
-                <div>{post.creator}</div>
+                <div>{post.creator.split('@')[0]}</div>
             </div>
             <div className='post'>
                 <img src={post.selectedFile} alt=""></img>
@@ -53,7 +53,7 @@ function Post({post, current_user, dispatch}) {
                 <div>
                     {postComments.slice().reverse().map((cmt) => (
                         <div key={cmt._id}>
-                            <div><b>{cmt.user}</b>: {cmt.comment}</div>
+                            <div><b>{cmt.user.split('@')[0]}</b>: {cmt.comment}</div>
                         </div>
                     ))}
                 </div>

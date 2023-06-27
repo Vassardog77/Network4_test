@@ -11,7 +11,7 @@ body {
   width: 13vw;
   height: 5vw;
   font-weight: bold;
-  font-size: 0.8vw;
+  font-size: 1.2vw;
   position: absolute;
   background-color: #f7f8f9;
   color: black;
@@ -389,6 +389,7 @@ font-size: 1.5vw;
 }
 
 .Receive-grid-item-1{
+  padding-right: 3vw;
   font-weight: bold;
   margin-top: 1vw;
   margin-left: 3vw;
@@ -397,6 +398,7 @@ font-size: 1.5vw;
 }
 
 .Receive-grid-item-2{
+  padding-right: 3vw;
   margin-top: 1vw;
   margin-left: 0vw;
   overflow: hidden;
@@ -413,6 +415,7 @@ font-size: 1.5vw;
 .Receive-grid-item-4{
   margin-top: 1vw;
   margin-left: 9vw;
+  width: 20vw;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -765,32 +768,34 @@ font-size: 1.5vw;
 
 
 .message_you {
+  display: inline-block;
   background-color: #2d9afc;
   font-size: 1vw;
   color: white;
   border-radius: 1vw;
   margin-top: 1vw;
   margin-left: 1vw;
-  width: 8vw;
-  padding: 0.0005vw;
-  padding-left: 0.5vw;
+  min-width: 0vw;
+  max-width: 12vw;
+  padding: 0.5vw;
 }
 
 .message_other {
+  display: inline-block;
   background-color: #e9e9eb;
   font-size: 1vw;
   color: #646c72;
   border-radius: 1vw;
   margin-top: 1vw;
   margin-left: 1vw;
-  width: 8vw;
-  padding: 0.0005vw;
-  padding-left: 0.5vw; 
+  min-width: 0vw;
+  max-width: 12vw;
+  padding: 0.5vw;
 }
 
 .message_author {
-  font-size: xx-small;
-  margin-left: 3%;
+  font-size: 0.7vw;
+  margin-left: 1.5vw;
 }
 
 #popup {

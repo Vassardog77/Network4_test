@@ -12,7 +12,7 @@ export default function NavBar() {
         </div>
         <div className="cornerthing">
             <img src={user.profile_pic} alt=""></img>
-            {user.email}
+            {user.email.split('@')[0]}
         </div>
         <ul>
             <CustomLink to="/"><div><FontAwesomeIcon icon={faHouse}/></div>Home</CustomLink>

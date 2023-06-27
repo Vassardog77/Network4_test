@@ -9,6 +9,7 @@ import { deleteNotification } from '../../actions/notificationActions'
 const socket = io.connect(base_url);
 const current_user = JSON.parse(localStorage.getItem('user'))
 
+
 function MessageTest() {
   const [Room, setRoom] = useState("");
   const [Roomlist, setRoomlist] = useState([]);
@@ -73,7 +74,7 @@ function MessageTest() {
       let user_array = []
         //console.log(response.data)
         response.data.forEach(async user => {
-          user_array.push(<div key={user.email}><button onClick={() => add_to_chat(user.email)}>{user.email}</button></div>)
+          user_array.push(<div key={user.email}><button onClick={() => add_to_chat(user.email)}>{user.email.split('@')[0]}</button></div>)
         })
         setjoinContent(<div>
               {user_array}
@@ -85,11 +86,12 @@ function MessageTest() {
       "user": current_user.email
     })
         .then(response => {
-            //console.log(response.data)
-            let roomlist_array = []
+        //console.log(response.data)
+        let roomlist_array = []
         //console.log(response.data)
         response.data.forEach(async room => {
-          roomlist_array.push(<div key={room}><button onClick={() => joinRoom(room)}>{room}</button></div>)
+          let usernames = room.split(',').map(email => email.trim().split('@')[0]);
+          roomlist_array.push(<div key={room}><button onClick={() => joinRoom(room)}>{usernames.join(', ')}</button></div>)
         })
         setRoomlist(<div>
               {roomlist_array}

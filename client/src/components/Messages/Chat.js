@@ -103,7 +103,7 @@ function Chat({ socket, username, room }) {
                   </div>
                 </div>
               </div>
-              <div className="message_author">{messageContent.author}</div>
+              <div className="message_author">{messageContent.author.split('@')[0]}</div>
               </>);
           })
             //----------------------populate message histroy-----------------------
@@ -119,7 +119,7 @@ function Chat({ socket, username, room }) {
                   </div>
                 </div>
               </div>
-              <div className="message_author">{messageContent.author}</div>
+              <div className="message_author">{messageContent.author.split('@')[0]}</div>
               </>);
           })}
         </div>
