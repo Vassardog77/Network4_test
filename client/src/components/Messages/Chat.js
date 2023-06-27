@@ -98,7 +98,7 @@ function Chat({ socket, username, room }) {
                 className={username === messageContent.author ? "message_you" : "message_other"}
               >
                 <div>
-                  <div className="message_content">
+                  <div>
                     <p>{messageContent.message}</p>
                   </div>
                 </div>
@@ -114,7 +114,7 @@ function Chat({ socket, username, room }) {
                 className={username === messageContent.author ? "message_you" : "message_other"}
               >
                 <div>
-                  <div className="message_content">
+                  <div>
                     <p>{messageContent.message}</p>
                   </div>
                 </div>
