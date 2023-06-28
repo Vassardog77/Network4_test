@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Routes, Navigate } from "react-router-dom"
 import { useAuthContext } from './hooks/useAuthContext';
 
@@ -19,6 +19,18 @@ import Profile from './components/Profile/profileMain';
 function App() {
 
   const { user } = useAuthContext()
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1); // delay for 1ms
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>; // or return null, or some loading spinner
+  }
+
   const current_user = JSON.parse(localStorage.getItem('user'))
 
   if (user) {     //if the user exists (is logged in) render page normally, otherwise render login page, and redirect to login page if on any other page
