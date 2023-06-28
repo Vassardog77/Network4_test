@@ -569,6 +569,7 @@ font-size: 1.5vw;
 }
 
 .calendar_element {
+  font-size: 1vw;
   padding-left: 0.5vw;
   padding-top: 0.5vw;
   width: 13.5%;
@@ -946,7 +947,7 @@ font-size: 1.5vw;
 }
 
 .login_message {
-  font-size: 15pt;
+  font-size: 2vw;
   margin-top: 10%;
   padding-bottom: 20%;
 }
@@ -965,7 +966,7 @@ font-size: 1.5vw;
 
 .insta_login_message {
   color: red;
-  font-size: small;
+  font-size: 1vw;
   margin-left: 10%;
   margin-top: 2%;
   background-color: white;
@@ -1017,4 +1018,19 @@ font-size: 1.5vw;
 
 #notificationPopup {
   display: none;
+}
+
+.comment_bar {
+  display: inline-flex;
+  align-items: center;
+}
+.comment_bar textarea {
+  margin: 1vw;
+  width: 30vw; 
+  height: 1.5vw; 
+  font-size: 1vw;
+}
+.comment_bar button {
+  margin-left: -1vw;
+  height: 1.5vw;
 }

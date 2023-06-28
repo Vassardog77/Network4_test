@@ -41,13 +41,12 @@ function Post({post, current_user, dispatch}) {
                     {post.creator === current_user.email && 
                     <FontAwesomeIcon className='trash_icon' onClick={() => dispatch(deletePost(post._id))} icon={faTrash}/>}
                 </div>
-                <div>
-                    <input
-                        type="text" 
+                <div className='comment_bar'>
+                    <textarea
                         value={comment}
-                        onChange={(e) => setComment(e.target.value)} 
-                        placeholder="Add a comment..." >
-                    </input> 
+                        onChange={(e) => setComment(e.target.value)}
+                        placeholder="Add a comment..."
+                    /> 
                     <button onClick={(event) => handleSubmitComment(event)}>Submit</button>
                 </div>
                 <div>
