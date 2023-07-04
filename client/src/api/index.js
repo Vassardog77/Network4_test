@@ -21,6 +21,7 @@ const calendarUrl = base_url+'/calendar/post'
 const analyticsUrl = base_url+'/analytics/ig'
 const profileUrl = base_url+'/profiles/post'
 const commentUrl = base_url+'/comment'
+const likeUrl = base_url+'/like'
 const notificationUrl = base_url+'/notification/post'
 const notificationUrl2 = base_url+'/notification/delete'
 
@@ -72,6 +73,12 @@ export const postProfile = (config) => axios.post(profileUrl, config)
 })
 
 export const createComment = (config) => axios.post(commentUrl, config)
+.then((response) => {
+    //console.log(response)
+    return response
+})
+
+export const likePost = (config) => axios.post(likeUrl, config)
 .then((response) => {
     //console.log(response)
     return response

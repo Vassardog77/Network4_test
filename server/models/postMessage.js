@@ -7,15 +7,18 @@ const postSchema = mongoose.Schema({
     tags: [String],
     selectedFile: String,
     profile_pic: String,
-    likeCount: {
-        type: Number,
-        default: 0,
-    },
     createdAt: {
         type: Date,
         default: new Date(),
     },
-    comments: Array
+    comments: Array,
+    likes: {
+        type: {
+            likeCount: Number,
+            likeArray: Array
+        },
+        default: {likeCount: 0, likeArray: []} // set the default value
+    }
 })
 
 const PostMessage = mongoose.model('PostMessage', postSchema)

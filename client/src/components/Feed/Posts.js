@@ -2,14 +2,26 @@ import React, {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { deletePost } from '../../actions/posts' 
 import { createComment } from '../../actions/commentActions' 
+import { likePost } from '../../actions/likeActions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faHeart } from '@fortawesome/free-solid-svg-icons' // import thumbs up icon for like button
 import { sendNotification } from '../../actions/notificationActions' 
-const current_user = JSON.parse(localStorage.getItem('user'))
 
 function Post({post, current_user, dispatch}) { 
     const [comment, setComment] = useState(''); 
     const [postComments, setPostComments] = useState(post.comments || []);
+    const [likeState, setLikeState] = useState(false); // like state for the current post
+    const [likeCount, setLikeCount] = useState(post.likes.likeCount || 0); // like count for the current post
+
+    useEffect(() => {
+        // Check if the current user has liked the post already
+        if (post.likes && post.likes.likeArray.includes(current_user.email)) {
+            setLikeState(true);
+        } else {
+            setLikeState(false);
+        }
+        setLikeCount(post.likes.likeCount || 0); // update the likeCount state whenever the post changes
+    }, [post, current_user]);
 
     const handleSubmitComment = (event) => {
         event.preventDefault();
@@ -28,6 +40,27 @@ function Post({post, current_user, dispatch}) {
         console.log(newComment);
     };
 
+     // Function to handle liking and unliking posts
+     const handleLike = () => {
+        // Toggle like state
+        setLikeState(!likeState);
+        // Update the like count based on whether the user is liking or unliking the post
+        setLikeCount(likeState ? likeCount - 1 : likeCount + 1);
+            
+        // The 'newLike' object to be sent to the server
+        const newLike = {
+            id: post._id, 
+            user: current_user.email, 
+            adding: !likeState
+        }; 
+    
+        console.log("dispatching a "+ !likeState+" like");
+    
+        // Dispatch the action to send the new like or unlike to the server
+        dispatch(likePost(newLike)).then(() => {
+        });
+    };
+
     return (
         <div className='feed_item' key={post._id}>
             <div className='feed_title'>
@@ -40,6 +73,13 @@ function Post({post, current_user, dispatch}) {
                     {post.message}
                     {post.creator === current_user.email && 
                     <FontAwesomeIcon className='trash_icon' onClick={() => dispatch(deletePost(post._id))} icon={faTrash}/>}
+                </div>
+                <div className='like_bar'>
+                    {/* Like button */}
+                    <button onClick={handleLike} style={likeState ? {color: 'red'} : {color: 'grey'}}> 
+                        <FontAwesomeIcon icon={faHeart} className="likeIcon"/>
+                        <span className="likeCount">{likeCount} Likes</span>
+                    </button>
                 </div>
                 <div className='comment_bar'>
                     <textarea
@@ -60,6 +100,8 @@ function Post({post, current_user, dispatch}) {
         </div>
     )
 }
+
+
 
 function Posts(props) {
     const dispatch = useDispatch();
