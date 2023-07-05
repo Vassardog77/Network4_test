@@ -78,7 +78,7 @@ function Post({post, current_user, dispatch}) {
                     {/* Like button */}
                     <button onClick={handleLike} style={likeState ? {color: 'red'} : {color: 'grey'}}> 
                         <FontAwesomeIcon icon={faHeart} className="likeIcon"/>
-                        <span className="likeCount">{likeCount} Likes</span>
+                        <span className="likeCount">{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</span>
                     </button>
                 </div>
                 <div className='comment_bar'>
