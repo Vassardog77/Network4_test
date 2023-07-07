@@ -28,7 +28,10 @@ function Feed() {
               if (notification.type === 'comment') {
                   dispatch(deleteNotification({user: current_user.email, unreads: notification})); //notification action
                   return false; // This notification will not be included in newNotifications.
-              }
+              } else if (notification.type === 'reply') {
+                dispatch(deleteNotification({user: current_user.email, unreads: notification})); //notification action
+                return false; // This notification will not be included in newNotifications.
+            }
               return true; // Keep the notification in newNotifications.
             }) : [];
     

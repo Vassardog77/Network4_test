@@ -1046,3 +1046,16 @@ font-size: 1.5vw;
   margin-left: 0.3vw;
   font-size: 0.8vw;
 }
+
+.replyContainer{
+  margin-left: 5vw;
+}
+
+.commentSection {
+  display: flex;
+  align-items: center;
+}
+
+.commentText {
+  margin-right: 1vw;
+}

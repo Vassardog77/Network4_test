@@ -1,4 +1,19 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
+
+const replySchema = mongoose.Schema({
+    _id: false,
+    user: String,
+    reply: String,
+    id: String
+});
+
+const commentSchema = mongoose.Schema({
+    _id: false,
+    user: String,
+    comment: String,
+    id: String,
+    replies: [replySchema],
+});
 
 const postSchema = mongoose.Schema({
     title: String,
@@ -11,7 +26,7 @@ const postSchema = mongoose.Schema({
         type: Date,
         default: new Date(),
     },
-    comments: Array,
+    comments: [commentSchema],
     likes: {
         type: {
             likeCount: Number,
