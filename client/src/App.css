@@ -31,6 +31,10 @@ body {
   margin-right: 1vw;
 }
 
+.spacer {
+  height: 10vw;
+}
+
 .logo {
   position:absolute;
   margin-top: -14vw;
@@ -1058,4 +1062,22 @@ font-size: 1.5vw;
 
 .commentText {
   margin-right: 1vw;
+}
+
+.reply_bar {
+  display: flex;
+  align-items: center;
+}
+
+.reply_bar textarea {
+  margin-top: 0.5vw;
+  margin-bottom: 0.5vw;
+  width: 26vw; 
+  height: 1.5vw; 
+  font-size: 1vw;
+}
+
+.reply_bar button {
+  margin-top: 0.5vw;
+  height: 1.5vw;
 }

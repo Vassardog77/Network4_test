@@ -75,6 +75,7 @@ function Feed() {
                 <div className='create_buttons'><button onClick={display2}>+ Create Post</button></div>
                 <div id='popup4' ref={popupRef}><Form></Form></div>
                 <Posts></Posts>
+                <div className='spacer'></div>
             </div>
         </div>
     );

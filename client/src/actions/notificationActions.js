@@ -13,6 +13,9 @@ export const deleteNotification = (config) => async (dispatch) => {
     try {
         const data = await api.deleteNotification(config) //comes from api index.js 
         dispatch({ type: 'DELETE_NOTIFICATION', payload: data }) 
+
+        // Updating the localStorage with the new notifications data
+        localStorage.setItem('notifications', JSON.stringify(data));
     } catch (error) {
         console.log(error)
     }

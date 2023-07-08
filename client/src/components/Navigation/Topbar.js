@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 import CustomLink from "../../customComponents/CustomLink";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell } from '@fortawesome/free-solid-svg-icons'
@@ -12,14 +13,17 @@ export default function NavBar() {
     const current_user = JSON.parse(localStorage.getItem('user'))
     const notificationRef = useRef();
 
-    const [notifications, setNotifications] = useState([]);
+    // use redux state instead of local state
+    const notifications = useSelector(state => state.notifications);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         axios.post(base_url+'/notification/get',
         {user: current_user.email})
             .then(response => {
                 console.log(response.data)
-                setNotifications(response.data);
+                // update the redux state instead of local state
+                dispatch({ type: 'SET_NOTIFICATIONS', payload: response.data });
                 localStorage.setItem('notifications', JSON.stringify(response.data));
             })
             .catch(error => {
@@ -41,7 +45,7 @@ export default function NavBar() {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, []);
+    }, [dispatch]);
 
     function displayNotification() {
         var x = document.getElementById("notificationPopup");
@@ -52,7 +56,8 @@ export default function NavBar() {
         }
     }
 
-    let notificationCount = JSON.parse(localStorage.getItem('notifications'))?.length || 0;
+    // use the length of the notifications array for the notificationCount
+    let notificationCount = notifications ? notifications.length : 0;
 
     return (
         <div className="Topbar">

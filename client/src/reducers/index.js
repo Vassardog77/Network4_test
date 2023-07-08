@@ -1,9 +1,8 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
+import posts from './posts';
+import notifications from './notificationReducers'; // Make sure to import your notifications reducer here
 
-import posts from './posts'
-export default combineReducers({posts})
-
-
-//export function combineReducers({posts})
-
-//make emails work??
+export default combineReducers({
+    posts,
+    notifications // Make sure to include notifications in your combined reducers
+});
