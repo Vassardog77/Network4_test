@@ -24,7 +24,10 @@ const ReplyComponent = ({ parentComment, post, current_user, dispatch }) => {
             type : "reply",
             recipient : [parentComment.user],
             sender : current_user.email,
-            content : {message: newReply}
+            content : {
+                message: newReply,
+                id: post._id
+            }
         }))
         setParentCommentReplies([...parentCommentReplies, newReplyData]);
         setNewReply('');

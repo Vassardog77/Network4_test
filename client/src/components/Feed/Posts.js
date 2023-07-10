@@ -7,10 +7,13 @@ import LikeComponent from './LikeComponent';
 import CommentComponent from './CommentComponent';
 
 function Post({post, current_user, dispatch}) {
+    if (!post) {
+        return null; // return null or a loader here
+      }
     return (
         <div className='feed_item' key={post._id}>
             <div className='feed_title'>
-                <img src={post.profile_pic} alt=""></img>
+                <img src={post?.profile_pic || 'defaultPicLinkHere'} alt=""></img>
                 <div>{post.creator.split('@')[0]}</div>
             </div>
             <div className='post'>
@@ -27,22 +30,21 @@ function Post({post, current_user, dispatch}) {
     )
 }
 
-
-
-function Posts(props) {
+function Posts({ post: singlePost }) {
     const dispatch = useDispatch();
     const current_user = JSON.parse(localStorage.getItem('user'));
     const posts = useSelector((state) => state.posts);
-
-    
+    console.log(posts)
 
     if (!posts || !Array.isArray(posts)) {
         return <div>Loading posts...</div>;
     }
 
+    const postsToRender = singlePost ? [singlePost] : posts;
+
     return (
         <div className='feed'>
-            {posts.slice().reverse().map((post, index) => 
+            {postsToRender.slice().reverse().map((post, index) => 
                 <Post key={index} post={post} current_user={current_user} dispatch={dispatch} />
             )}
         </div>

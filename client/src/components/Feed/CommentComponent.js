@@ -43,7 +43,10 @@ const CommentComponent = ({ post, current_user, dispatch }) => {
             type : "comment",
             recipient : [post.creator],
             sender : current_user.email,
-            content : {message: comment}
+            content : {
+                message: comment,
+                id: post._id
+            }
         }))
         setPostComments([...postComments, newComment]);
         setComment('');

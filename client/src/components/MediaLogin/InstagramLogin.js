@@ -15,7 +15,7 @@ function InstagramLogin(props) {
         .then(response => {
             setPages(response.data)
             setLogin(true)
-            console.log(response.data)
+            //console.log(response.data)
         })
     }
 

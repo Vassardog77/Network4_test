@@ -44,6 +44,7 @@ function Chat({ socket, username, room }) {
       //console.log("sending message")
       dispatch(sendNotification({
         type : "message",
+        room: room,
         recipient : recipient,
         sender : current_user.email,
         content : messageData

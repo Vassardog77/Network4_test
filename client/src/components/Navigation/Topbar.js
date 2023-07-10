@@ -61,7 +61,7 @@ export default function NavBar() {
 
     return (
         <div className="Topbar">
-            <CustomLink to="/social-add">Add Social Media Accounts +</CustomLink>
+            <span/>
             <div>
                 <div className="notification-icon" onClick={displayNotification}>
                     <FontAwesomeIcon icon={faBell} style={{ fontSize: '1.5vw'}}/>

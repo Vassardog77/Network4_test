@@ -15,6 +15,7 @@ import Email from './components/Email/emailVisuals';
 import Rsvp from './components/Rsvp/rsvpVisuals';
 import Analytics from './components/Analytics/analyticsFunctionality';
 import Profile from './components/Profile/profileMain';
+import SinglePost from './components/Feed/SinglePost';
 
 function App() {
 
@@ -34,42 +35,46 @@ function App() {
   const current_user = JSON.parse(localStorage.getItem('user'))
 
   if (user) {     //if the user exists (is logged in) render page normally, otherwise render login page, and redirect to login page if on any other page
-  return (
-    <div>
-      <NavBar></NavBar>
-      <TopBar/>
-      <div className='container'>
-        <Routes>
-          <Route path='/login' element={!user?<LoginPage/> : <Navigate to="/"/>}></Route>
-          <Route path='/signup' element={!user?<SignupPage/> : <Navigate to="/"/>}></Route>
-          <Route path='/social-add' element={<LoginList/>}></Route>
-          <Route path='/' element={<Home/>}></Route>
-          <Route path='/feed' element={<Feed/> }></Route>
-          <Route path='/messages' element={<Messages/>}></Route>
-          <Route path='/email' element={<Email/>}></Route>
-          <Route path='/rsvp' element={<Rsvp/>}></Route>
-          <Route path='/analytics' element={<Analytics/>}></Route>
-          <Route path={'/profile/'+current_user.email} element={<Profile/>}></Route>
-        </Routes>
+    return (
+      <div>
+        <NavBar></NavBar>
+        <TopBar/>
+        <div className='container'>
+          <Routes>
+            <Route path='/login' element={!user ? <LoginPage/> : <Navigate to="/"/>}></Route>
+            <Route path='/signup' element={!user ? <SignupPage/> : <Navigate to="/"/>}></Route>
+            <Route path='/social-add' element={<LoginList/>}></Route>
+            <Route path='/' element={<Home/>}></Route>
+            <Route path='/feed' element={<Feed/> }></Route>
+            <Route path='/messages' element={<Messages/>}></Route>
+            <Route path='/messages/:url_room' element={<Messages/>}></Route>
+            <Route path='/email' element={<Email/>}></Route>
+            <Route path='/rsvp' element={<Rsvp/>}></Route>
+            <Route path='/analytics' element={<Analytics/>}></Route>
+            <Route path='/post/:id' element={<SinglePost/>}></Route>
+            <Route path={'/profile/'+current_user.email} element={<Profile/>}></Route>
+          </Routes>
+        </div>
       </div>
-    </div>
-  )}
-  else {
-    return(
-      <Routes>
-          <Route path='/login' element={<LoginPage/>}></Route>
-          <Route path='/signup' element={<SignupPage/>}></Route>
-          <Route path='/social-add' element={<LoginList/>}></Route>
-          <Route path='/' element={user?<Home/> : <Navigate to="/login"/>}></Route>
-          <Route path='/feed' element={user?<Feed/> : <Navigate to="/login"/>}></Route>
-          <Route path='/messages' element={user?<Messages/> : <Navigate to="/login"/>}></Route>
-          <Route path='/email' element={user?<Email/> : <Navigate to="/login"/>}></Route>
-          <Route path='/rsvp' element={user?<Rsvp/> : <Navigate to="/login"/>}></Route>
-          <Route path='/analytics' element={user?<Analytics/> : <Navigate to="/login"/>}></Route>
-          <Route path='/profile' element={user?<Profile/> : <Navigate to="/login"/>}></Route>
-      </Routes>
-    )
+    )}
+    else {
+      return(
+        <Routes>
+            <Route path='/login' element={<LoginPage/>}></Route>
+            <Route path='/signup' element={<SignupPage/>}></Route>
+            <Route path='/social-add' element={<LoginList/>}></Route>
+            <Route path='/' element={user?<Home/> : <Navigate to="/login"/>}></Route>
+            <Route path='/feed' element={user?<Feed/> : <Navigate to="/login"/>}></Route>
+            <Route path='/messages' element={user?<Messages/> : <Navigate to="/login"/>}></Route>
+            <Route path='/messages/:url_room' element={user?<Messages/> : <Navigate to="/login"/>}></Route>
+            <Route path='/email' element={user?<Email/> : <Navigate to="/login"/>}></Route>
+            <Route path='/rsvp' element={user?<Rsvp/> : <Navigate to="/login"/>}></Route>
+            <Route path='/analytics' element={user?<Analytics/> : <Navigate to="/login"/>}></Route>
+            <Route path='/post/:id' element={<SinglePost/>}></Route>
+            <Route path='/profile' element={user?<Profile/> : <Navigate to="/login"/>}></Route>
+        </Routes>
+      )
+    }
   }
-}
 
 export default App;

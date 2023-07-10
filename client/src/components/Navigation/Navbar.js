@@ -10,18 +10,23 @@ export default function NavBar() {
         <div className="logo">
             <img src={Logo} alt=""></img>
         </div>
+        <div className="social_add">
+            <CustomLink to="/social-add">Add Social Media Accounts +</CustomLink>
+        </div>
         <div className="cornerthing">
             <img src={user.profile_pic} alt=""></img>
             {user.email.split('@')[0]}
         </div>
-        <ul>
-            <CustomLink to="/"><div><FontAwesomeIcon icon={faHouse}/></div>Home</CustomLink>
-            <CustomLink to="/feed"><div><FontAwesomeIcon icon={faListUl}/></div>Feed</CustomLink>
-            <CustomLink to="/messages"><div><FontAwesomeIcon icon={faComment}/></div>Messages</CustomLink>
-            <CustomLink to="/email"><div><FontAwesomeIcon icon={faEnvelope}/></div>Email</CustomLink>
-            {/*<CustomLink to="/rsvp">RSVP</CustomLink>*/}
-            <CustomLink to="/analytics"><div><FontAwesomeIcon icon={faChartSimple}/></div>Analytics</CustomLink>
-            <CustomLink to={"/profile/"+user.email}><div><FontAwesomeIcon icon={faUser}/></div>Profile</CustomLink>
-        </ul>
+        <div className="nav_links">
+            <ul>
+                <CustomLink to="/"><div><FontAwesomeIcon icon={faHouse}/></div>Home</CustomLink>
+                <CustomLink to="/feed"><div><FontAwesomeIcon icon={faListUl}/></div>Feed</CustomLink>
+                <CustomLink to="/messages"><div><FontAwesomeIcon icon={faComment}/></div>Messages</CustomLink>
+                <CustomLink to="/email"><div><FontAwesomeIcon icon={faEnvelope}/></div>Email</CustomLink>
+                {/*<CustomLink to="/rsvp">RSVP</CustomLink>*/}
+                <CustomLink to="/analytics"><div><FontAwesomeIcon icon={faChartSimple}/></div>Analytics</CustomLink>
+                <CustomLink to={"/profile/"+user.email}><div><FontAwesomeIcon icon={faUser}/></div>Profile</CustomLink>
+            </ul>
+        </div>
     </div>
 }

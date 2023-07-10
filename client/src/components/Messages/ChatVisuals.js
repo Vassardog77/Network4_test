@@ -1,16 +1,19 @@
-//import "./App.css";
 import io from "socket.io-client";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Chat from "./Chat";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { base_url } from "../../api";
 import { deleteNotification } from '../../actions/notificationActions' 
+import { useParams, useLocation } from 'react-router-dom';
 const socket = io.connect(base_url);
 const current_user = JSON.parse(localStorage.getItem('user'))
 
+function ChatVisuals() {
+  const location = useLocation();
+  let { url_room } = useParams();
+  url_room = decodeURIComponent(url_room);
 
-function MessageTest() {
   const [Room, setRoom] = useState("");
   const [Roomlist, setRoomlist] = useState([]);
   const [joinContent, setjoinContent] = useState(<div></div>);
@@ -20,6 +23,15 @@ function MessageTest() {
   const [emailList, setemailList] = useState("");
 
   const dispatch = useDispatch();
+  const notifications = useSelector(state => state.notifications);
+
+  useEffect(() => {
+    // if a room is specified in the URL, join that room
+    if (url_room) {
+      console.log(url_room)
+      joinRoom(url_room);
+    }
+  }, [location]);
 
   const add_to_chat = (email) => {
     setShowChat(false)//getting rid of the current chat
@@ -44,24 +56,17 @@ function MessageTest() {
     let timeoutId
     timeoutId = setTimeout(() => {
         let room = email_list;
-        //console.log("current chat room is "+room)
         setRoom(room)
         socket.emit("join_room", room);
 
-        let notifications = JSON.parse(localStorage.getItem('notifications'));
-
         // Check if there is a notification for the current room and delete it.
-        let newNotifications = notifications ? notifications.filter((notification) => {
+        let newNotifications = Array.isArray(notifications) ? notifications.filter((notification) => {
           if (notification.type === 'message' && notification.content.room === room) {
-              dispatch(deleteNotification({user: current_user.email, unreads: notification})); //notification action
-              return false; // This notification will not be included in newNotifications.
+              dispatch(deleteNotification({user: current_user.email, unreads: notification})); 
+              return false; 
           }
-          return true; // Keep the notification in newNotifications.
+          return true;
         }) : [];
-
-        //console.log(newNotifications)
-        // Save the new notifications back to local storage.
-        localStorage.setItem('notifications', JSON.stringify(newNotifications));
 
         setShowChat(true);
     }, 1);
@@ -127,4 +132,4 @@ function MessageTest() {
   );
 }
 
-export default MessageTest;
+export default ChatVisuals;

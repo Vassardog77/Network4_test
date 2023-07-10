@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faListUl } from '@fortawesome/free-solid-svg-icons'
-import { deleteNotification } from '../../actions/notificationActions'
 import { getPosts } from '../../actions/posts'
 import Posts from './Posts'
 import Form from './Form';
@@ -16,30 +15,6 @@ function Feed() {
     useEffect(() => {
         dispatch(getPosts())
     }, [dispatch])
-
-    useEffect(() => {
-        let timeoutId
-        timeoutId = setTimeout(() => {
-    
-            let notifications = JSON.parse(localStorage.getItem('notifications'));
-    
-            // Check if there is a notification for the current room and delete it.
-            let newNotifications = notifications ? notifications.filter((notification) => {
-              if (notification.type === 'comment') {
-                  dispatch(deleteNotification({user: current_user.email, unreads: notification})); //notification action
-                  return false; // This notification will not be included in newNotifications.
-              } else if (notification.type === 'reply') {
-                dispatch(deleteNotification({user: current_user.email, unreads: notification})); //notification action
-                return false; // This notification will not be included in newNotifications.
-            }
-              return true; // Keep the notification in newNotifications.
-            }) : [];
-    
-            //console.log(newNotifications)
-            // Save the new notifications back to local storage.
-            localStorage.setItem('notifications', JSON.stringify(newNotifications));
-        }, 1);
-    }, [dispatch]);
 
     useEffect(() => {
         function handleClickOutside(event) {
