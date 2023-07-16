@@ -72,7 +72,7 @@ export const getEvents = async (req, res) => { //getting calaendar events
               res.status(500).json({ error })
             })
   } else {
-    res.status(401).json({ error })
+    res.status(401).json("no google account")
   }
 }
 

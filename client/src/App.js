@@ -43,16 +43,16 @@ function App() {
           <Routes>
             <Route path='/login' element={!user ? <LoginPage/> : <Navigate to="/"/>}></Route>
             <Route path='/signup' element={!user ? <SignupPage/> : <Navigate to="/"/>}></Route>
-            <Route path='/social-add' element={<LoginList/>}></Route>
-            <Route path='/' element={<Home/>}></Route>
+            <Route path='/social-add' element={current_user.account_type !== 'student' ? <LoginList/> : <Navigate to="/feed"/>}></Route>
+            <Route path='/' element={current_user.account_type !== 'student' ? <Home/> : <Navigate to="/feed"/>}></Route>
             <Route path='/feed' element={<Feed/> }></Route>
             <Route path='/messages' element={<Messages/>}></Route>
             <Route path='/messages/:url_room' element={<Messages/>}></Route>
-            <Route path='/email' element={<Email/>}></Route>
-            <Route path='/rsvp' element={<Rsvp/>}></Route>
-            <Route path='/analytics' element={<Analytics/>}></Route>
+            <Route path='/email' element={current_user.account_type !== 'student' ? <Email/> : <Navigate to="/feed"/>}></Route>
+            <Route path='/rsvp' element={current_user.account_type !== 'student' ? <Rsvp/> : <Navigate to="/feed"/>}></Route>
+            <Route path='/analytics' element={current_user.account_type !== 'student' ? <Analytics/> : <Navigate to="/feed"/>}></Route>
             <Route path='/post/:id' element={<SinglePost/>}></Route>
-            <Route path={'/profile/'+current_user.email} element={<Profile/>}></Route>
+            <Route path={'/profile/'+current_user.email} element={current_user.account_type !== 'student' ? <Profile/> : <Navigate to="/feed"/>}></Route>
           </Routes>
         </div>
       </div>

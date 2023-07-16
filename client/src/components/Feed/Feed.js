@@ -47,7 +47,9 @@ function Feed() {
         <div>
             <div className='component_parent'>
                 <div className = 'component_header'>Feed <FontAwesomeIcon icon={faListUl}/></div>
-                <div className='create_buttons'><button onClick={display2}>+ Create Post</button></div>
+                {current_user.account_type !== 'student' && (
+                  <div className='create_buttons'><button onClick={display2}>+ Create Post</button></div>
+                )}
                 <div id='popup4' ref={popupRef}><Form></Form></div>
                 <Posts></Posts>
                 <div className='spacer'></div>

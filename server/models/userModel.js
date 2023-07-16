@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 import validator from 'validator'
 
-const Schema = mongoose.Schema  //maybe fix export??
+const Schema = mongoose.Schema  
 
 const userSchema = new Schema({
   screen_name: {
@@ -19,6 +19,9 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  account_type: {
+    type: String,
   }
 })
 
