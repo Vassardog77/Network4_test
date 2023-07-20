@@ -7,7 +7,7 @@ function Chatbot() {
   const [submitted, setSubmitted] = useState(false);
 
   const openai = new OpenAIApi(new Configuration ({
-    apiKey: "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"
+    apiKey: "removed key"
   }))
 
   useEffect(() => {
