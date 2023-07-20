@@ -28,7 +28,7 @@ function ChatVisuals() {
   useEffect(() => {
     // if a room is specified in the URL, join that room
     if (url_room) {
-      console.log(url_room)
+      //console.log(url_room)
       joinRoom(url_room);
     }
   }, [location]);
@@ -77,7 +77,6 @@ function ChatVisuals() {
     axios.get(base_url+'/api/user/get') //getting all users to display 
     .then(response => {
       let user_array = []
-        //console.log(response.data)
         response.data.forEach(async user => {
           user_array.push(<div key={user.email}><button onClick={() => add_to_chat(user.email)}>{user.email.split('@')[0]}</button></div>)
         })
@@ -86,24 +85,22 @@ function ChatVisuals() {
             </div>)
     })
 
-    
     axios.post(base_url+'/chats', { //getting all chatrooms the user is currently involved in
       "user": current_user.email
     })
-        .then(response => {
-        //console.log(response.data)
-        let roomlist_array = []
-        //console.log(response.data)
-        response.data.forEach(async room => {
-          let usernames = room.split(',').map(email => email.trim().split('@')[0]);
-          roomlist_array.push(<div key={room}><button onClick={() => joinRoom(room)}>{usernames.join(', ')}</button></div>)
-        })
-        setRoomlist(<div>
-              {roomlist_array}
-            </div>)
-          })
-
+    .then(response => {
+      let roomlist_array = []
+      response.data.forEach(async roomObj => {
+        let room = roomObj.room;
+        let roomName = roomObj.room_name;
+        let usernames = room.split(',').map(email => email.trim().split('@')[0]);
+        let displayText = roomName ? roomName : usernames.join(', ');
+        roomlist_array.push(<div key={room}><button onClick={() => joinRoom(room)}>{displayText}</button></div>)
+      })
+      setRoomlist(<div>{roomlist_array}</div>)
+    })
 }, [])
+
 
 
   return (

@@ -24,6 +24,8 @@ const commentUrl = base_url+'/comment'
 const likeUrl = base_url+'/like'
 const notificationUrl = base_url+'/notification/post'
 const notificationUrl2 = base_url+'/notification/delete'
+const AddpeopleUrl = base_url+'/chats/addpeople'
+const renameChatUrl = base_url+'/chats/rename'
 
 
 
@@ -91,6 +93,18 @@ export const sendNotification = (config) => axios.post(notificationUrl, config)
 })
 
 export const deleteNotification = (config) => axios.post(notificationUrl2, config)
+.then((response) => {
+    //console.log(response)
+    return response
+})
+
+export const addPeople = (config) => axios.post(AddpeopleUrl, config)
+.then((response) => {
+    //console.log(response)
+    return response
+})
+
+export const renameChat = (config) => axios.post(renameChatUrl, config)
 .then((response) => {
     //console.log(response)
     return response

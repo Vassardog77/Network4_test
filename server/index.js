@@ -25,6 +25,7 @@ import commentRoutes from './routes/commentRoutes.js'
 import likeRoutes from './routes/likesRoutes.js'
 import notificationRoutes from './routes/notificationRoutes.js'
 
+import { postScheduledPosts } from './controllers/posts.js'
 import { saveMessage } from './controllers/chatControllers.js'
 
 const app = express()
@@ -81,6 +82,9 @@ app.use('/like', likeRoutes)
 app.use('/notification', notificationRoutes)
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(()  => server.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`)))
+    .then(()  => {
+        server.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`));
+        setInterval(postScheduledPosts, 60 * 1000);
+    })
     .catch((error) => console.log(error.message));
     

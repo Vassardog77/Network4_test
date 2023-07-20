@@ -33,7 +33,6 @@ export const getMessages = async (req, res) => {
 
     if(req.body.room) { //if client is asking for a specific room, provide message history
         try {
-            //console.log(req.body.room)
             const room = req.body.room
             const message_history = await Chat.findOne({room: room}) //getting message history from the database
             if(message_history){
@@ -46,7 +45,6 @@ export const getMessages = async (req, res) => {
         }
     } else if (req.body.user) { //if client is asking for a user, send all rooms user is involved in
         try {
-            //console.log("user = "+req.body.user)
             const user = req.body.user
 
             const message_history = await Chat.find({ room: { "$regex": user } }); //getting all message histories containing user from the database
@@ -54,9 +52,11 @@ export const getMessages = async (req, res) => {
             let rooms = []
 
             message_history.forEach(element => {
-                rooms.push(element.room)
+                rooms.push({
+                    room: element.room,
+                    room_name: element.room_name // This could be undefined if no room_name has been set
+                })
             });
-            //console.log(rooms)
             
             res.status(200).json(rooms)
 
@@ -66,3 +66,69 @@ export const getMessages = async (req, res) => {
     }
 }
 
+
+export const addPeople = async (req, res) => {
+    const { room, selectedUsers } = req.body;
+    
+    try {
+        // Find the chat with the provided room
+        const chat = await Chat.findOne({ room: room });
+
+        if (!chat) {
+            return res.status(404).send('Chat not found');
+        }
+        
+        // Split the current room into an array
+        let roomArray = chat.room.split(',').map(email => email.trim());
+        
+        // Add new users to the room
+        roomArray = roomArray.concat(selectedUsers);
+        
+        // Remove duplicates and sort
+        roomArray = [...new Set(roomArray)].sort();
+        
+        // Convert back to comma separated string
+        chat.room = roomArray.join(', ');
+        console.log(chat.room)
+
+        // Save the chat
+        await chat.save();
+        
+        res.status(200).json({ message: 'People added successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('An error occurred');
+    }
+}
+
+export const renameChat = async (req, res) => {
+    const { room, newChatName } = req.body;
+    
+    try {
+      // Find the chat room
+      const chat = await Chat.findOne({ room: room });
+  
+      if (!chat) {
+        return res.status(404).json({ message: "Chat room not found" });
+      }
+  
+      // If room_name is not defined, initialize it
+      if (!chat.room_name) {
+        chat.room_name = newChatName;
+      }
+  
+      // Update the room name
+      chat.room_name = newChatName;
+  
+      // Save the chat room
+      const updatedChat = await chat.save();
+  
+      // Send back the updated chat
+      res.json(updatedChat);
+  
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+  
+  export default renameChat;

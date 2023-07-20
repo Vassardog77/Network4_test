@@ -1123,3 +1123,12 @@ font-size: 1.5vw;
 .social_add li {
   width: 12vw;
 }
+
+.addpeople_button {
+  position: absolute;
+  margin-left: 22vw;
+  margin-top: -3.5vw;
+}
+.addpeople_button button {
+  font-size: 1vw;
+}

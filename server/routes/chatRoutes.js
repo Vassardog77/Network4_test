@@ -1,9 +1,11 @@
 import express from 'express'
 
-import { getMessages } from '../controllers/chatControllers.js'
+import { addPeople, getMessages, renameChat } from '../controllers/chatControllers.js'
 
 const router = express.Router()
 
 router.post('/', getMessages)
+router.post('/addpeople', addPeople)
+router.post('/rename', renameChat)
 
 export default router

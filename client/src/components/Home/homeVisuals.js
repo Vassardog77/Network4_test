@@ -1,12 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react';
+import { useNavigate } from 'react-router-dom';
 import CalendarComponent2 from './calendarComponent2';
 import HomeFunctionality from './homeFunctionality'
-import LoginList from '../MediaLogin/LoginList';
-import Form from '../Feed/Form';
 
 function HomeVisuals(props) {
     const popupRef = useRef();
-    const popup2Ref = useRef();
+    const navigate = useNavigate();
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -15,15 +14,6 @@ function HomeVisuals(props) {
                 if (x.style.display === "block") {
                     setTimeout(function(){
                         x.style.display = "none";
-                    }, 100);
-                }
-            }
-
-            if (popup2Ref.current && !popup2Ref.current.contains(event.target)) {
-                var y = document.getElementById("popup2");
-                if (y.style.display === "block") {
-                    setTimeout(function(){
-                        y.style.display = "none";
                     }, 100);
                 }
             }
@@ -44,22 +34,16 @@ function HomeVisuals(props) {
         }
     }
 
-    function display2() {
-        var x = document.getElementById("popup2");
-        if (x.style.display === "block") {
-            x.style.display = "none";
-        } else {
-            x.style.display = "block";
-        }
+    function navigateToCreatePost() {
+        navigate('/create_post');
     }
 
     return (
         <div className='home'>
             <div className='home_post_buttons'>
-                <button onClick={display2}>+ Create Post</button>
-                <button  onClick={display}>+ Create Event</button>
+                <button onClick={navigateToCreatePost}>+ Create Post</button>
+                <button onClick={display}>+ Create Event</button>
                 <div id='popup' ref={popupRef}><HomeFunctionality></HomeFunctionality></div>
-                <div id='popup2' ref={popup2Ref}><Form></Form></div>
             </div>
             <CalendarComponent2></CalendarComponent2>
         </div>

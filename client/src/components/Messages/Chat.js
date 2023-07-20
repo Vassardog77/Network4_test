@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { base_url } from "../../api";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { sendNotification } from '../../actions/notificationActions' 
+import Addpeople from "./Addpeople";
+import RenameChat from "./RenameChat";
 const current_user = JSON.parse(localStorage.getItem('user'))
 
 
@@ -87,9 +89,8 @@ function Chat({ socket, username, room }) {
   }, [socket]);
 
   return (<>
+    <div className="addpeople_button"><Addpeople room={room}/><RenameChat room={room}/></div>
     <div className="chat_window" ref={chatWindowRef}>
-      <div className="chat_header">
-      </div>
       <div className="chat_body">
         <div className="message_container">{
         //----------------------populate message histroy-----------------------

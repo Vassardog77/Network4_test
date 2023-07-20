@@ -16,6 +16,7 @@ import Rsvp from './components/Rsvp/rsvpVisuals';
 import Analytics from './components/Analytics/analyticsFunctionality';
 import Profile from './components/Profile/profileMain';
 import SinglePost from './components/Feed/SinglePost';
+import Form from './components/Posting/Form';
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
             <Route path='/rsvp' element={current_user.account_type !== 'student' ? <Rsvp/> : <Navigate to="/feed"/>}></Route>
             <Route path='/analytics' element={current_user.account_type !== 'student' ? <Analytics/> : <Navigate to="/feed"/>}></Route>
             <Route path='/post/:id' element={<SinglePost/>}></Route>
+            <Route path='/create_post' element={current_user.account_type !== 'student' ? <Form/> : <Navigate to="/feed"/>}></Route>
             <Route path={'/profile/'+current_user.email} element={current_user.account_type !== 'student' ? <Profile/> : <Navigate to="/feed"/>}></Route>
           </Routes>
         </div>
@@ -70,7 +72,8 @@ function App() {
             <Route path='/email' element={user?<Email/> : <Navigate to="/login"/>}></Route>
             <Route path='/rsvp' element={user?<Rsvp/> : <Navigate to="/login"/>}></Route>
             <Route path='/analytics' element={user?<Analytics/> : <Navigate to="/login"/>}></Route>
-            <Route path='/post/:id' element={<SinglePost/>}></Route>
+            <Route path='/post/:id' element={user?<SinglePost/> : <Navigate to="/login"/>}></Route>
+            <Route path='/create_post' element={user?<Form/> : <Navigate to="/login"/>}></Route>
             <Route path='/profile' element={user?<Profile/> : <Navigate to="/login"/>}></Route>
         </Routes>
       )
