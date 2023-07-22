@@ -15,7 +15,7 @@ export default function NavBar() {
       
       {user.account_type !== 'student' && (
         <div className="social_add">
-          <CustomLink to="/social-add">Add Social Media Accounts +</CustomLink>
+          <CustomLink to="/social-add">Add Social Media Accounts +</CustomLink> 
         </div>
       )}
 

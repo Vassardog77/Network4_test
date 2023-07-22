@@ -88,60 +88,64 @@ function Chat({ socket, username, room }) {
     });
   }, [socket]);
 
-  return (<>
-    <div className="addpeople_button"><Addpeople room={room}/><RenameChat room={room}/></div>
-    <div className="chat_window" ref={chatWindowRef}>
-      <div className="chat_body">
-        <div className="message_container">{
-        //----------------------populate message histroy-----------------------
-            messageHistory.map((messageContent) => {//add key to below div at some point
-            return (<>
-              <div
-                className={username === messageContent.author ? "message_you" : "message_other"}
-              >
-                <div>
-                  <div>
-                    <p>{messageContent.message}</p>
+  return (
+    !room || room === "undefined" ? <div /> :
+    <>
+      <div className="addpeople_button">
+        <Addpeople room={room} />
+        <RenameChat room={room} />
+      </div>
+      <div className="chat_window" ref={chatWindowRef}>
+        <div className="chat_body">
+          <div className="message_container">
+            {messageHistory.map((messageContent) => {
+              return (
+                <>
+                  <div className={username === messageContent.author ? "message_you" : "message_other"}>
+                    <div>
+                      <div>
+                        <p>{messageContent.message}</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div className="message_author">{messageContent.author.split('@')[0]}</div>
-              </>);
-          })
-            //----------------------populate message histroy-----------------------
-        }
-          {messageList.map((messageContent) => {//add key to below div at some point
-            return (<>
-              <div
-                className={username === messageContent.author ? "message_you" : "message_other"}
-              >
-                <div>
-                  <div>
-                    <p>{messageContent.message}</p>
+                  <div className="message_author">{messageContent.author.split('@')[0]}</div>
+                </>
+              );
+            })}
+            {messageList.map((messageContent) => {
+              return (
+                <>
+                  <div className={username === messageContent.author ? "message_you" : "message_other"}>
+                    <div>
+                      <div>
+                        <p>{messageContent.message}</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div className="message_author">{messageContent.author.split('@')[0]}</div>
-              </>);
-          })}
+                  <div className="message_author">{messageContent.author.split('@')[0]}</div>
+                </>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
-    <div className="chat_footer">
-    <input
-      type="text"
-      value={currentMessage}
-      placeholder="message..."
-      onChange={(event) => {
-        setCurrentMessage(event.target.value);
-      }}
-      onKeyPress={(event) => {
-        event.key === "Enter" && sendMessage();
-      }}
-    />
-    <button onClick={sendMessage}>&#9658;</button>
-  </div>
-  </>);
+      <div className="chat_footer">
+        <input
+          type="text"
+          value={currentMessage}
+          placeholder="message..."
+          onChange={(event) => {
+            setCurrentMessage(event.target.value);
+          }}
+          onKeyPress={(event) => {
+            event.key === "Enter" && sendMessage();
+          }}
+        />
+        <button onClick={sendMessage}>&#9658;</button>
+      </div>
+    </>
+  );
+  
 }
 
 export default Chat;

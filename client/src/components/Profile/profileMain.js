@@ -5,7 +5,7 @@ import ProfileView from './profileView';
 function ProfileMain(props) {
 
     const [View_mode, setView_mode] = useState(true)
-    const [Content, setContent] = useState(<ProfileView></ProfileView>)
+    const [Content, setContent] = useState(<ProfileView></ProfileView>) 
     const [Button, setButton] = useState("Edit Profile")
     
 

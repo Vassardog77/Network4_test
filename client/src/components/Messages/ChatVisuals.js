@@ -14,6 +14,8 @@ function ChatVisuals() {
   let { url_room } = useParams();
   url_room = decodeURIComponent(url_room);
 
+  console.log(url_room)
+
   const [Room, setRoom] = useState("");
   const [Roomlist, setRoomlist] = useState([]);
   const [joinContent, setjoinContent] = useState(<div></div>);
@@ -91,6 +93,7 @@ function ChatVisuals() {
     .then(response => {
       let roomlist_array = []
       response.data.forEach(async roomObj => {
+        console.log(roomObj)
         let room = roomObj.room;
         let roomName = roomObj.room_name;
         let usernames = room.split(',').map(email => email.trim().split('@')[0]);

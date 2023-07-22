@@ -493,13 +493,25 @@ font-size: 1.5vw;
   margin-top: 1.5vw;
   margin-bottom: 1.5vw;
   font-size: 1vw;
+  text-decoration: none !important; 
+  color: inherit !important;
+  list-style-type: none !important;
+}
+.feed_item a {
+  text-decoration: none !important; 
+  color: inherit !important;
+  list-style-type: none !important;
 }
 
 .feed_title {
   display: flex;
   align-items: center;
   padding: 0.5vw;
+  text-decoration: none; /* remove underline */
+  color: inherit; /* inherit color from parent element */
+  list-style-type: none; /* remove bullet points */
 }
+
 
 .feed_title div {
   margin-left: 1vw;
@@ -508,6 +520,7 @@ font-size: 1.5vw;
 .feed_title img {
   width: 2.3vw;
   border-radius: 2vw;
+
 }
 
 .post img{
@@ -1132,3 +1145,31 @@ font-size: 1.5vw;
 .addpeople_button button {
   font-size: 1vw;
 }
+
+.no_profile_message {
+  font-weight: bold;
+  font-size: 3vw;
+  margin-left: 20vw;
+}
+
+.message_link_with_profile {
+  text-align: right;
+  margin-right: 10vw;
+}
+
+.message_link_with_profile button {
+  font-size: 1vw; /* adjust as needed */
+  text-decoration: none;
+}
+
+.message_link_no_profile {
+  position: absolute;
+  left: 50vw;
+  top: 13vw;
+}
+
+.message_link_no_profile button {
+  font-size: 1vw; /* adjust as needed */
+  text-decoration: none;
+}
+

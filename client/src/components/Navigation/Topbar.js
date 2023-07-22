@@ -15,6 +15,7 @@ export default function NavBar() {
 
     // use redux state instead of local state
     const notifications = useSelector(state => state.notifications);
+    const validNotifications = notifications.filter(notification => ['message', 'comment', 'reply'].includes(notification.type));
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -56,8 +57,8 @@ export default function NavBar() {
         }
     }
 
-    // use the length of the notifications array for the notificationCount
-    let notificationCount = notifications ? notifications.length : 0;
+    // use the length of the valid notifications array for the notificationCount
+    let notificationCount = validNotifications ? validNotifications.length : 0;
 
     return (
         <div className="Topbar">

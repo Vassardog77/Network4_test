@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 
 const Notifications = () => {
     const notifications = useSelector(state => state.notifications);
-
+    const validNotifications = notifications.filter(notification => ['message', 'comment', 'reply'].includes(notification.type));
+    
     return (
         <div className="notifications-dropdown">
-            {(!Array.isArray(notifications) || notifications.length === 0) ? (
+            {(!Array.isArray(validNotifications) || validNotifications.length === 0) ? (
                 <div className="notification-item">No new notifications</div>
             ) : (
-                [...notifications].reverse().map((notification, index) => {
+                validNotifications.reverse().map((notification, index) => {
                     let path;
                     if (notification.type === 'message') {
                         path = `/messages/${notification.content.room}`;
@@ -21,7 +22,7 @@ const Notifications = () => {
                     return path ? (
                         <Link className="notification-link" to={path} key={index}>
                             <div className="notification-item">
-                                New {(typeof notification.type === 'string' ? notification.type : 'unknown')}
+                                New {notification.type}
                                 from {(typeof notification.sender === 'string' ? notification.sender.split('@')[0] : 'unknown')}:
                                 "{(notification.content && typeof notification.content.message === 'string') ?
                                 (notification.content.message.length > 20 ? notification.content.message.slice(0, 20) + '...' : notification.content.message)
@@ -30,7 +31,7 @@ const Notifications = () => {
                         </Link>
                     ) : (
                         <div key={index} className="notification-item">
-                            New {(typeof notification.type === 'string' ? notification.type : 'unknown')}
+                            New {notification.type}
                             from {(typeof notification.sender === 'string' ? notification.sender.split('@')[0] : 'unknown')}:
                             "{(notification.content && typeof notification.content.message === 'string') ?
                             (notification.content.message.length > 20 ? notification.content.message.slice(0, 20) + '...' : notification.content.message)

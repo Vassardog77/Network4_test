@@ -5,17 +5,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons' // import thumbs up icon for like button
 import LikeComponent from './LikeComponent';
 import CommentComponent from './CommentComponent';
+import CustomLink from "../../customComponents/CustomLink"
 
 function Post({post, current_user, dispatch}) {
     if (!post) {
         return null; // return null or a loader here
-      }
+    }
     return (
         <div className='feed_item' key={post._id}>
-            <div className='feed_title'>
-                <img src={post?.profile_pic || 'defaultPicLinkHere'} alt=""></img>
-                <div>{post.creator.split('@')[0]}</div>
-            </div>
+            <CustomLink to={"/profile/"+post.creator}>
+                <div className='feed_title'>
+                    <img src={post?.profile_pic || 'defaultPicLinkHere'} alt=""></img>
+                    <div>{post.creator.split('@')[0]}</div>
+                </div>
+            </CustomLink>
             <div className='post'>
                 <img src={post.selectedFile} alt=""></img>
                 <div className='post_caption'>
@@ -29,6 +32,8 @@ function Post({post, current_user, dispatch}) {
         </div>
     )
 }
+
+
 
 function Posts({ post: singlePost }) {
     const dispatch = useDispatch();
