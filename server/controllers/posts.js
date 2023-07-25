@@ -1,6 +1,7 @@
 import PostMessage from "../models/postMessage.js"
 import User from '../models/userModel.js'
 import ScheduledPost from '../models/scheduledPost.js';
+import ChatbotKey from "../models/chatbotKey.js";
 export const getPosts = async (req, res) => {
     try {
         const postMessages = await PostMessage.find()
@@ -67,4 +68,16 @@ export const deletePost = async (req,res) => {
     await PostMessage.findByIdAndRemove(id)
 
     res.json({ message: 'Post deleted successfully'})
+}
+
+export const sendChatKey = async (req, res) => {
+    try {
+        const chatbotKey = await ChatbotKey.findOne();
+        if(!chatbotKey) {
+            return res.status(404).json({ message: "Key not found" });
+        }
+        res.status(200).json({ key: chatbotKey.key });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 }

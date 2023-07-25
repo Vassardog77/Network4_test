@@ -27,15 +27,18 @@ export default function NavBar() {
       <div className="nav_links">
         <ul>
           {user.account_type !== 'student' && (
-            <>
-              <CustomLink to="/"><div><FontAwesomeIcon icon={faHouse}/></div>Home</CustomLink>
-              <CustomLink to="/email"><div><FontAwesomeIcon icon={faEnvelope}/></div>Email</CustomLink>
-              <CustomLink to="/analytics"><div><FontAwesomeIcon icon={faChartSimple}/></div>Analytics</CustomLink>
-              <CustomLink to={"/profile/"+user.email}><div><FontAwesomeIcon icon={faUser}/></div>Profile</CustomLink>
-            </>
+            <CustomLink to="/"><div><FontAwesomeIcon icon={faHouse}/></div>Home</CustomLink>
           )}
           <CustomLink to="/feed"><div><FontAwesomeIcon icon={faListUl}/></div>Feed</CustomLink>
           <CustomLink to="/messages"><div><FontAwesomeIcon icon={faComment}/></div>Messages</CustomLink>
+
+          {user.account_type !== 'student' && (
+            <>
+              <CustomLink to={"/profile/"+user.email}><div><FontAwesomeIcon icon={faUser}/></div>Profile</CustomLink>
+              <CustomLink to="/email"><div><FontAwesomeIcon icon={faEnvelope}/></div>Email</CustomLink>
+              <CustomLink to="/analytics"><div><FontAwesomeIcon icon={faChartSimple}/></div>Analytics</CustomLink>
+            </>
+          )}
         </ul>
       </div>
     </div>

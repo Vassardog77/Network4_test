@@ -93,11 +93,11 @@ function Form(props) {
     }, [instagram_login,MediaSelector]);
 
     return (
-        <div>
+        <div className='post_maker'>
             <div className='media_selector_button'>
+                <div>Posting to: {MediaSelector}</div>
                 <button onClick={change_mediaselector_network}>Network</button>
                 <button onClick={change_mediaselector_instagram}>Instagram</button>
-                <div>Posting to: {MediaSelector}</div>
             </div>
             {(instagram_login === 'false' || instagram_login === null) && MediaSelector === "Instagram" ? (
                 <div className='login_message'>
@@ -109,15 +109,15 @@ function Form(props) {
                 </div>
             ) : (
                 <div>
-                    <form onSubmit={handleSubmit}>
+                    <form className='post_form' onSubmit={handleSubmit}>
                         <div>
                             <FileBase type='file' multiple={false} onDone={({base64}) =>setPostData({ ...postData, selectedFile: base64 })}></FileBase>
                         </div>
                         <textarea  placeholder='Message' value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })}></textarea>
-                        <textarea  placeholder='Tags' value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value })}></textarea>
-                        <input type="datetime-local" onChange={(e) => setPostData({ ...postData, date: e.target.value })} /> {/* New date picker */}
-                        <div></div>
-                        <button>Submit</button>
+                        {/*<textarea  placeholder='Tags' value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value })}></textarea>*/}
+                        <div>Schedule your post? (optional)</div>
+                        <div><input type="datetime-local" onChange={(e) => setPostData({ ...postData, date: e.target.value })} /></div>
+                        <button>Submit Post</button>
                         <button type="button" onClick={clear}>Clear</button>
                     </form>
                     <div><Chatbot/></div>

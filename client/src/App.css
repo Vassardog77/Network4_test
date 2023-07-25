@@ -1173,3 +1173,68 @@ font-size: 1.5vw;
   text-decoration: none;
 }
 
+.post_maker{
+  margin-top: -10vw;
+}
+
+.media_selector_button {
+  font-size: 1.5vw;
+  margin-top: 8vw;
+}
+.media_selector_button button {
+  padding: 0.5vw;
+  font-size: 1.5vw;
+  margin-top: 0.5vw;
+  margin-bottom: -20vw;
+  font-weight: bold;
+}
+.post_maker textarea{
+  outline-style: none;
+  border-radius: 1vw;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0.5vw;
+  resize: none;
+  width: 30vw;
+  height: 5vw;
+}
+
+.post_maker div {
+  padding-bottom: 1vw;
+}
+
+.post_maker input {
+  outline-style: none;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 0.5vw;
+}
+
+.chatbot_parent textarea{
+  outline-style: none;
+  border-radius: 1vw;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0.5vw;
+  resize: none;
+}
+
+.chatbot_parent button {
+  font-size: 1.5vw;
+}
+
+
+.chatbot_heading{
+  margin-top: 2vw;
+  font-weight: bold;
+}
+
+.post_form button {
+  font-size: 1.5vw;
+  margin-right: 1vw;
+}
+
+.rename textarea{
+  outline-style: none;
+  border-radius: 1vw;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0.5vw;
+  resize: none;
+}

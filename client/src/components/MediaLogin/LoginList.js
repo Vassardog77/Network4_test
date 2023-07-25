@@ -10,7 +10,7 @@ function Loginbar(props) {
             <FacebookLogin></FacebookLogin>
             <GoogleLogin></GoogleLogin>
             <InstagramLogin></InstagramLogin>
-            <DiscordLogin></DiscordLogin>
+            {/*<DiscordLogin></DiscordLogin>*/}
         </div>
     );
 }

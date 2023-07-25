@@ -93,7 +93,7 @@ function ChatVisuals() {
     .then(response => {
       let roomlist_array = []
       response.data.forEach(async roomObj => {
-        console.log(roomObj)
+        //console.log(roomObj)
         let room = roomObj.room;
         let roomName = roomObj.room_name;
         let usernames = room.split(',').map(email => email.trim().split('@')[0]);
