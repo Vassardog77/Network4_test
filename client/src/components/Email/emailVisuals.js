@@ -1,9 +1,10 @@
-import React, { useState,useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInbox,faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 import { base_url } from '../../api';
 import EmailFunctionality from './emailFunctionality';
+import GoogleLogin from '../MediaLogin/GoogleLogin';
 const current_user = JSON.parse(localStorage.getItem('user'))
 
 function Emailvisuals(props) {//email visuals
@@ -15,6 +16,7 @@ function Emailvisuals(props) {//email visuals
         { name: '', date: '', subject: '', message: ''},
         { name: '', date: '', subject: '', message: ''},
     ])
+    const [error, setError] = useState(false);
 
     useEffect(() => { 
         axios.post(base_url+'/email/list', {
@@ -30,7 +32,11 @@ function Emailvisuals(props) {//email visuals
                 { name: response.data[4].payload.headers.find(header => header.name === 'From').value, date: response.data[4].payload.headers.find(header => header.name === 'Date').value, subject: response.data[4].payload.headers.find(header => header.name === 'Subject').value, message:response.data[4].snippet},
             ])
         })
-        }, [])
+        .catch(error => {
+            console.log(error);
+            setError(true);
+        });
+    }, [])
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -65,7 +71,13 @@ function Emailvisuals(props) {//email visuals
             <div className = 'component_parent'>
                 <div className = 'component_header'>Email <FontAwesomeIcon icon={faEnvelope}/></div>
                 <div className='create_buttons'><button onClick={display2}>+ Send Email</button></div>
-                <div className = 'email_box'>
+                {error ? 
+                (<div className='login_message'>
+                    <div>Please log in with google to continue</div>
+                    <div className='Loginbar'><GoogleLogin /></div>
+                </div>) 
+                :
+                (<div className = 'email_box'>
                     <div className = 'email_box_top'>
                         <div className = 'email_box_top_text'>All</div>
                     </div>
@@ -111,11 +123,11 @@ function Emailvisuals(props) {//email visuals
                                    <div className = "email_receive_parent-item Receive-grid-item-4">{Emails[4].date}</div> 
                         </div>
                     </div>
-                </div>
+                </div>)}
             </div>
             <div id='popup3' ref={popupRef}><EmailFunctionality></EmailFunctionality></div>            
         </div>
     );
 }
 
-export default Emailvisuals;
+export default Emailvisuals; 

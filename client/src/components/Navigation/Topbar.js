@@ -15,7 +15,9 @@ export default function NavBar() {
 
     // use redux state instead of local state
     const notifications = useSelector(state => state.notifications);
-    const validNotifications = notifications.filter(notification => ['message', 'comment', 'reply'].includes(notification.type));
+    const validNotifications = Array.isArray(notifications)
+    ? notifications.filter(notification => ['message', 'comment', 'reply'].includes(notification.type))
+    : [];
     const dispatch = useDispatch();
 
     useEffect(() => {

@@ -136,20 +136,28 @@ function CalendarComponent2(props) {
             setCalendar(<div className='calendar_parent'>{calendar_elements}</div>)
             //console.log(Calendar)
         })
-        .catch(error => { //catching error when note logged in
-            if (error.response.data.error.status === 401) {
-                // handle 401 (not logged in) error here
-                console.log("NOT LOGGED IN") //what calendar is set to when you arent logged in
-                setCalendar(<div className='login_message'>
-                    <div>Please log in with google to continue</div>
-                    <div className='Loginbar'><GoogleLogin></GoogleLogin></div>
-                    </div>)
-                localStorage.setItem('google_login', false)
+        .catch(error => {
+            // Log the detailed error information to the console
+            if (error.response) {
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+            } else if (error.request) {
+              console.log(error.request);
             } else {
-                // handle other errors here
-                console.log(error.response)
+              console.log('Error', error.message);
             }
+        
+            // Regardless of the error type, display the Google login prompt
+            setCalendar(
+              <div className='login_message'>
+                <div>Please log in with google to continue</div>
+                <div className='Loginbar'><GoogleLogin /></div>
+              </div>
+            );
+            localStorage.setItem('google_login', false);
         })
+        
         return(calendar_array)
     }
     

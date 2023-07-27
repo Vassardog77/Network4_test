@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 
 const Notifications = () => {
     const notifications = useSelector(state => state.notifications);
-    const validNotifications = notifications.filter(notification => ['message', 'comment', 'reply'].includes(notification.type));
+    const validNotifications = Array.isArray(notifications)
+    ? notifications.filter(notification => ['message', 'comment', 'reply'].includes(notification.type))
+    : [];
     
     return (
         <div className="notifications-dropdown">

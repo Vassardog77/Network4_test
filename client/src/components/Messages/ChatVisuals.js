@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Chat from "./Chat";
 import { useDispatch, useSelector } from 'react-redux';
+import Select from "react-select";
 import { base_url } from "../../api";
 import { deleteNotification } from '../../actions/notificationActions' 
 import { useParams, useLocation } from 'react-router-dom';
@@ -14,54 +15,35 @@ function ChatVisuals() {
   let { url_room } = useParams();
   url_room = decodeURIComponent(url_room);
 
-  console.log(url_room)
-
   const [Room, setRoom] = useState("");
   const [Roomlist, setRoomlist] = useState([]);
-  const [joinContent, setjoinContent] = useState(<div></div>);
   const [showChat, setShowChat] = useState(false);
   const [newChat, setnewChat] = useState(false);
-  const [emailArray, setemailArray] = useState([current_user.email]);
-  const [emailList, setemailList] = useState("");
+  const [selectedEmails, setSelectedEmails] = useState([]);
+  const [emailOptions, setEmailOptions] = useState([]);
 
   const dispatch = useDispatch();
   const notifications = useSelector(state => state.notifications);
 
   useEffect(() => {
-    // if a room is specified in the URL, join that room
     if (url_room) {
-      //console.log(url_room)
       joinRoom(url_room);
     }
   }, [location]);
 
-  const add_to_chat = (email) => {
-    setShowChat(false)//getting rid of the current chat
-    let previous_email_array = emailArray
-    previous_email_array.push(email)
-    previous_email_array.sort() //alphebetize array so that chat is always the same reguardless of order clicked
-    //console.log(previous_email_array)
-    setemailArray(previous_email_array)                 //updating emailArray state
-
-    let email_list = previous_email_array.join(", ")
-    setemailList(email_list)                      //updating emailList state
-
-    //console.log("email list = " +email_list)
-  }
-
-
   const joinRoom = (email_list) => {
+    console.log(email_list)
     setShowChat(false)
-    setemailList("");
-    setemailArray([current_user.email]);
-
-    let timeoutId
-    timeoutId = setTimeout(() => {
-        let room = email_list;
+    setSelectedEmails([]);
+  
+    setTimeout(() => {
+        // Split the emails, sort them and join them back into a string
+        let emails = email_list.split(',').map(email => email.trim()).sort();
+        let room = emails.includes(current_user.email) ? emails.join(', ') : [current_user.email, ...emails].sort().join(', ');
+  
         setRoom(room)
         socket.emit("join_room", room);
-
-        // Check if there is a notification for the current room and delete it.
+  
         let newNotifications = Array.isArray(notifications) ? notifications.filter((notification) => {
           if (notification.type === 'message' && notification.content.room === room) {
               dispatch(deleteNotification({user: current_user.email, unreads: notification})); 
@@ -69,31 +51,28 @@ function ChatVisuals() {
           }
           return true;
         }) : [];
-
+  
         setShowChat(true);
     }, 1);
   }
 
-
   useEffect(() => {           
-    axios.get(base_url+'/api/user/get') //getting all users to display 
+    axios.get(base_url+'/api/user/get') 
     .then(response => {
-      let user_array = []
-        response.data.forEach(async user => {
-          user_array.push(<div key={user.email}><button onClick={() => add_to_chat(user.email)}>{user.email.split('@')[0]}</button></div>)
-        })
-        setjoinContent(<div>
-              {user_array}
-            </div>)
-    })
+      const options = response.data.map(user => ({
+        value: user.email,
+        label: user.email.split('@')[0]
+      }));
 
-    axios.post(base_url+'/chats', { //getting all chatrooms the user is currently involved in
+      setEmailOptions(options);
+    });
+
+    axios.post(base_url+'/chats', {
       "user": current_user.email
     })
     .then(response => {
       let roomlist_array = []
-      response.data.forEach(async roomObj => {
-        //console.log(roomObj)
+      response.data.forEach(roomObj => {
         let room = roomObj.room;
         let roomName = roomObj.room_name;
         let usernames = room.split(',').map(email => email.trim().split('@')[0]);
@@ -115,19 +94,28 @@ function ChatVisuals() {
           </div>
           {!newChat ? 
           (<div className="new_chat_creator"><button onClick={() => setnewChat(true)}>Create New Chat?</button></div>) : 
-          (<><div className="new_chat_creator">Select Users:</div>{joinContent}</>)}
+          (<div className="new_chat_creator">
+            Select Users:
+            <Select
+              isMulti
+              options={emailOptions}
+              value={selectedEmails}
+              onChange={(values) => setSelectedEmails(values)}
+            />
+            <button onClick={() => joinRoom(selectedEmails.map(emailOption => emailOption.value).join(', '))}>
+              Create Chat
+            </button>
+          </div>)}
       </div>
       {!showChat ? (
         <div className="chat_window">
-          <div>{emailList}</div>
           {newChat && <div>
-            <button onClick={() => joinRoom(emailList)}>Create Chat</button>
+            <button onClick={() => joinRoom(selectedEmails.map(emailOption => emailOption.value).join(', '))}>Create Chat</button>
           </div>}
         </div>
-      ) : (<>
-        
+      ) : (
         <Chat socket={socket} username={current_user.email} room={Room} />
-        </>)}
+      )}
     </div>
   );
 }
