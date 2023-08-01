@@ -79,7 +79,7 @@ export const getIgLogin = async (req, res) => { //instagram login function
     const PageId = req.body.id                  //get Fb page Id that was past from client
     var user = req.body.user
     console.log(req.body)
-    const FbToken = await ApiToken.findOne({media: "facebook"})
+    const FbToken = await ApiToken.findOne({media: "facebook",user:user})
     await ApiToken.deleteMany({media: "instagram",user:user})                                        //delete old values
 
     var config = {
@@ -99,7 +99,7 @@ export const getIgLogin = async (req, res) => { //instagram login function
             newToken.access_token = FbPageMatch.access_token  //saving fb page access token as ig access token in database
             newToken.user = user
             await newToken.save()                          //saving the value to mongodb    
-            await Page.deleteMany({media: "instagram"}) //creating new page element in database for ig page (add ,user:user as check)
+            await Page.deleteMany({media: "instagram",user:user}) //creating new page element in database for ig page (add ,user:user as check)
             const newPage = new Page()
             newPage.media = 'instagram'
             newPage.user = user

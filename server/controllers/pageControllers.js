@@ -3,6 +3,7 @@ import Page from "../models/page.js"
 import axios from 'axios'
 
 export const getFbPages = async (req, res) => { //getting fb pages for getting ig login
+  //console.log(req.body.user)
     
     const FbToken = await ApiToken.findOne({media: "facebook", user: req.body.user})
     await Page.deleteMany({media: "facebook", user: req.body.user})                                        //delete old values
@@ -19,7 +20,7 @@ export const getFbPages = async (req, res) => { //getting fb pages for getting i
       
       axios(config)
       .then(async function (response) {
-        const data = await response.data.data.map(media => ({...media, media:'facebook'}))
+        const data = await response.data.data.map(media => ({...media, media:'facebook', user: req.body.user}))
 
         data.forEach(async element => {
             const newPage = new Page(element)            //setting the value for mongodb (FIX FOREACH)
