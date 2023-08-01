@@ -18,7 +18,8 @@ function FacebookLogin(props) {
             'instagram_basic%2C'+
             'pages_read_engagement%2C'+
             'instagram_manage_insights%2C'+
-            'pages_manage_posts'
+            'pages_manage_posts%2C'+
+            'instagram_content_publish'
         ]
         let redirect_uri = window.location.origin + "/social-add"
         window.location.replace("https://www.facebook.com/v15.0/dialog/oauth?client_id=354529376664526&redirect_uri="+redirect_uri+"&state=1h12j5215ggdn8ng7fj3"+scopes)

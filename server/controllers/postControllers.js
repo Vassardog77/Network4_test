@@ -4,7 +4,7 @@ import S3 from "../models/s3.js"
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
 
-export const postFbPosts = async (req, res) => { //webook endpoints
+/*export const postFbPosts = async (req, res) => { //webook endpoints
 
     const FbPageToken = await Page.findOne({name: "Network_Test"})
 
@@ -22,15 +22,13 @@ export const postFbPosts = async (req, res) => { //webook endpoints
         console.log(error)
         res.status(500).json({ error })
       })
-}
+}*/
 
 
 export const postIgPosts = async (req, res) => {
   const user = req.body.user
   const FbPage = await Page.findOne({media: "instagram", user:user})
   const insta_id = FbPage.id
-
-  const FbPageToken = await Page.findOne({name: "Network_Test"})
 
   let creation_id = req.body.creation_id
 
@@ -39,7 +37,7 @@ export const postIgPosts = async (req, res) => {
   var config = {
       method: 'post',
       url: 'https://graph.facebook.com/v16.0/'+insta_id+'/media_publish?creation_id='+creation_id,
-      headers: { "Authorization": "Bearer "+FbPageToken.access_token }
+      headers: { "Authorization": "Bearer "+FbPage.access_token }
     };
     
     axios(config)
