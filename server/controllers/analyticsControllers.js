@@ -6,6 +6,7 @@ export const getIgAnalytics = async (req, res) => { //webook endpoints
     const user = req.body.user //getting email from request body 
 
     const FbToken = await ApiToken.findOne({media: "facebook", user: user })
+    const IgPage = await Page.findOne({media: "instagram", user: user })
 
     if (FbToken) {
       const todays_date = new Date()
@@ -35,8 +36,7 @@ export const getIgAnalytics = async (req, res) => { //webook endpoints
 
       var config = {
           method: 'get',
-          url: 'https://graph.facebook.com/17841422229166819/insights?metric=profile_views,reach,impressions&period=day&'+
-          'since=2023-'+start_month+'-'+start_date+'&'+
+          url: 'https://graph.facebook.com/'+IgPage.id+'/insights?metric=profile_views,reach,impressions&period=day&'+ 'since=2023-'+start_month+'-'+start_date+'&'+
           'until=2023-'+end_month+'-'+end_date,
           headers: { 
             'Authorization': 'Bearer '+ FbToken.access_token
