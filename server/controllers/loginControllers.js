@@ -80,12 +80,15 @@ export const getIgLogin = async (req, res) => { //instagram login function
     var user = req.body.user
     console.log(req.body)
     const FbToken = await ApiToken.findOne({media: "facebook",user:user})
+    const FbPageMatch = await Page.findOne({id: PageId})  //Getting the fbpage element that has the ig account attached
     await ApiToken.deleteMany({media: "instagram",user:user})                                        //delete old values
+    console.log(FbPageMatch.id)
+
 
     var config = {
         method: 'get',
       maxBodyLength: Infinity,
-        url: 'https://graph.facebook.com/v14.0/101989732541801?fields=instagram_business_account',
+        url: 'https://graph.facebook.com/v14.0/'+FbPageMatch.id+'?fields=instagram_business_account',
         headers: { 
           'Authorization': 'Bearer '+ FbToken.access_token
         }
@@ -95,7 +98,6 @@ export const getIgLogin = async (req, res) => { //instagram login function
         .then(async function (response) {
             const newToken = new ApiToken()            //setting the value for mongodb
             newToken.media = 'instagram'
-            const FbPageMatch = await Page.findOne({id: PageId})  //Getting the fbpage element that has the ig account attached
             newToken.access_token = FbPageMatch.access_token  //saving fb page access token as ig access token in database
             newToken.user = user
             await newToken.save()                          //saving the value to mongodb    
