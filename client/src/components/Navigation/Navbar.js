@@ -27,7 +27,7 @@ export default function NavBar() {
       <div className="nav_links">
         <ul>
           {user.account_type !== 'student' && (
-            <CustomLink to="/"><div><FontAwesomeIcon icon={faHouse}/></div>Home</CustomLink>
+            <CustomLink to="/home"><div><FontAwesomeIcon icon={faHouse}/></div>Home</CustomLink>
           )}
           <CustomLink to="/feed"><div><FontAwesomeIcon icon={faListUl}/></div>Feed</CustomLink>
           <CustomLink to="/messages"><div><FontAwesomeIcon icon={faComment}/></div>Messages</CustomLink>

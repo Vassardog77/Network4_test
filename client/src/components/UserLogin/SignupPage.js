@@ -19,7 +19,7 @@ const Signup = () => {
   };
 
   return (
-    <>
+    <div>
       <div className="logo">
         <img src={Logo} alt=""></img>
       </div>
@@ -71,7 +71,7 @@ const Signup = () => {
           <CustomLink to="/login">Log in</CustomLink>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

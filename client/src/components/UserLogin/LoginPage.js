@@ -11,10 +11,10 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     await login(email, password)
-    console.log(email, password)
+    //console.log(email, password)
   }
 
-  return (<>
+  return (<div>
   <div className="logo">
       <img src={Logo} alt=""></img>
   </div>
@@ -42,7 +42,7 @@ const LoginPage = () => {
       <CustomLink className="login_switch" to="/signup">Sign up</CustomLink>
     </div>
     </div>
-    </>)
+    </div>)
 }
 
 export default LoginPage
