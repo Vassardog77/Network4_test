@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useAuthContext } from './hooks/useAuthContext';
 
@@ -24,6 +24,18 @@ import PrivacyPolicy from './components/Home/privacyPolicy';
 function App() {
     const { user } = useAuthContext();
     const current_user = JSON.parse(localStorage.getItem('user'));
+    const [shouldRender, setShouldRender] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShouldRender(true);
+        }, 1);  // This will wait for 1 millisecond
+    
+        return () => clearTimeout(timer);  // Clean up the timer if the component is unmounted
+    }, []);
+    if (!shouldRender) {
+        return <div>Loading...</div>
+    }
 
     if (user) {
         return (
@@ -32,7 +44,7 @@ function App() {
                 <TopBar />
                 <div className='container'>
                     <Routes>
-                        <Route path='/' element={<LandingPage />} />
+                        <Route path='/' element={user ? <Navigate to="/home" /> :<LandingPage />} />
                         <Route path='/login' element={user ? <Navigate to="/home" /> : <LoginPage />} />
                         <Route path='/signup' element={<SignupPage />} />
                         <Route path='/privacy_policy' element={<PrivacyPolicy />} />
@@ -59,6 +71,7 @@ function App() {
                 <Route path='/login' element={<LoginPage />} />
                 <Route path='/signup' element={<SignupPage />} />
                 <Route path='/privacy_policy' element={<PrivacyPolicy />} />
+                {/*<Route path='/social-add' element={<LoginList />} />*/}
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
         );

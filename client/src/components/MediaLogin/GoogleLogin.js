@@ -16,12 +16,14 @@ function GoogleLogin(props) {
         let redirect_uri = window.location.origin + "/social-add"
         window.location.replace("https://accounts.google.com/o/oauth2/v2/auth?client_id=419138563147-lblak6s03v4i6lssberpm1vr4gqg000b.apps.googleusercontent.com&redirect_uri="+redirect_uri+"&response_type=code&scope=https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.send https://www.googleapis.com/auth/calendar.events")
         sessionStorage.setItem('g_code_pending', 'pending')
+        localStorage.setItem('redirect_uri', redirect_uri);
     }
 
 
         if(access_code_pending === ('pending')){
                 sessionStorage.removeItem("g_code_pending");
                 let code = searchParams.get("code")
+                console.log(code)
                 let redirect_uri = window.location.origin + "/social-add"
                 
                 let config = {
