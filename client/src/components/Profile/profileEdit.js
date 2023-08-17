@@ -26,6 +26,10 @@ function ProfileEdit(props) {
             "img4":Img4
         })
         alert("Profile Updated!")
+
+        // clear the form
+        e.currentTarget.reset();
+
         dispatch(postProfile(profile))
     }
 

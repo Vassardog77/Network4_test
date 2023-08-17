@@ -30,7 +30,18 @@ function HomeFunctionality(props) {
       }
     }
     dispatch(postCalendarEvent(cal_event))
+
+    //close popup
+    let popup = document.getElementById("popup");
+    if (popup && popup.style.display === "block") {
+        popup.style.display = "none";
+    }
+
+    // clear the form
+    e.currentTarget.reset();
+
     alert("Event Scehduled!")
+
   }
 
 

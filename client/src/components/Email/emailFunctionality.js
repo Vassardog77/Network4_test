@@ -27,6 +27,16 @@ function EmailFunctionality(props) {
             "raw":data
         }
         dispatch(postEmail(email))
+
+        //close popup
+        let popup = document.getElementById("popup3");
+        if (popup && popup.style.display === "block") {
+            popup.style.display = "none";
+        }
+
+        // clear the form
+        e.currentTarget.reset();
+
         alert("Email Sent!")
     }
 
