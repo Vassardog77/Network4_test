@@ -22,7 +22,8 @@ const userSchema = new Schema({
   },
   account_type: {
     type: String,
-  }
+  },
+  expoPushToken: String,
 })
 
 // static signup method
