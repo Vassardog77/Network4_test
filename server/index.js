@@ -41,7 +41,7 @@ const io = new Server(server, {     //linking socket.io to server
 
 const CONNECTION_URL = process.env.CONNECTION_URL   //setting connection url
 const PORT = process.env.PORT|| 5000; //setting port used to be process.env.PORT|| 5000
-console.log(PORT+" working (notification update)")
+console.log(PORT+" working (notification update 2)")
 
 io.on("connection", (socket) => {//socket.io chat capability
     console.log(`User Connected: ${socket.id}`);

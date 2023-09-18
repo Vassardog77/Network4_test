@@ -43,6 +43,7 @@ export const postNotification = async (req, res) => {
 
     for (let chunk of chunks) {
       try {
+        console.log("token"+user.expoPushToken+ "IS working 2")
         let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
         tickets.push(...ticketChunk);
       } catch (error) {
