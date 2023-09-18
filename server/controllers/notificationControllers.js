@@ -89,9 +89,10 @@ export const deleteNotification = async (req, res) => {
 
   export const updatePushToken = async (req, res) => {
     try {
-        const { userId, token } = req.body;
+        const { email, token } = req.body;
 
-        const user = await User.findByIdAndUpdate(userId, { expoPushToken: token }, { new: true });
+        // Find the user by email and update the expoPushToken field
+        const user = await User.findOneAndUpdate({ email }, { expoPushToken: token }, { new: true });
 
         if (user) {
             res.status(200).send({ message: 'Push token updated successfully.' });
@@ -103,6 +104,7 @@ export const deleteNotification = async (req, res) => {
         console.log(error);
     }
 };
+
 
 /*export const oldpostNotification = async (req, res) => {
   try {
