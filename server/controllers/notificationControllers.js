@@ -24,9 +24,11 @@ export const postNotification = async (req, res) => {
       const user = await User.findOne({ email: email });
 
       if (!Expo.isExpoPushToken(user.expoPushToken)) {
+        console.log("token"+user.expoPushToken+ "not working")
         console.error(`Push token ${user.expoPushToken} is not a valid Expo push token for user ${email}`);
         continue;
       }
+      console.log("token"+user.expoPushToken+ "IS working")
       messages.push({
         to: user.expoPushToken,
         sound: 'default',
