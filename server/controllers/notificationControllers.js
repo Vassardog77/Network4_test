@@ -90,10 +90,11 @@ export const deleteNotification = async (req, res) => {
   export const updatePushToken = async (req, res) => {
     try {
         const { email, token } = req.body;
-        console.log('body:'+req.body)
+        console.log('email: '+{email})
+        console.log('token: '+{token})
         // Find the user by email and update the expoPushToken field
-        const user = await User.findOneAndUpdate({ email }, { expoPushToken: token }, { new: true });
-        console.log('user: '+user)
+        const user = await User.findOneAndUpdate({email}, { expoPushToken: token }, { new: true });
+        //console.log('user: '+user)
 
         if (user) {
             res.status(200).send({ message: 'Push token updated successfully.' });
