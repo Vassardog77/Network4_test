@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import ProfileEdit from './profileEdit';
+import EditorVisuals from './ProfileEditor/EditorVisuals'
 import ProfileView from './profileView';
 
 function ProfileMain(props) {
 
     const [View_mode, setView_mode] = useState(true)
-    const [Content, setContent] = useState(<ProfileView></ProfileView>) 
+    const [Content, setContent] = useState(<ProfileView/>) 
     const [Button, setButton] = useState("Edit Profile")
     
 
     let change_view = () => {
         if (View_mode === true) {
-            setContent(<ProfileEdit></ProfileEdit>)
+            setContent(<EditorVisuals/>)
             setButton("View Profile")
             console.log(View_mode)
             setView_mode(false)
         } else {
-            setContent(<ProfileView></ProfileView>)
+            setContent(<ProfileView/>)
             setButton("Edit Profile")
             console.log(View_mode)
             setView_mode(true)

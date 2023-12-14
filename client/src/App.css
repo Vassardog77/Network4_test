@@ -1301,3 +1301,143 @@ font-size: 1.5vw;
   color: #777;
   font-size: 0.9vw;
 }
+
+
+{/*=================================Code for Editor =============================================*/}
+
+
+.background {
+  background-color: grey;
+  height: 100%;
+}
+.top-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.top-bar input[type="file"],
+.top-bar button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  border: 1px solid #d0d0d0;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.top-bar button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+}
+
+/* Display area - where the elements will be shown */
+.display-area {
+  background-color: white;
+  min-height: 100rem; /* Adjust as needed */
+  width: 69vw;
+  margin: 50px;
+  padding: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: auto;
+}
+
+.importedImage {
+  position: absolute;
+  z-index: 1;
+}
+
+.textboxClass {
+  position: relative;
+  z-index: 1; 
+}
+
+.textbox {
+  position: relative;
+  z-index: 1;
+  outline-style: solid;
+}
+
+.textboxDisplay {
+  font-size: 16px; /* Example font size */
+  line-height: 1.5; /* Adjust line height for better readability */
+  color: #333; /* Text color */
+  white-space: pre-wrap; /* Preserve line breaks and spaces */
+  word-wrap: break-word; /* Ensure long words don't overflow */
+  background-color: transparent; /* Background color */
+  border: none; /* Remove border */
+  outline: none; /* Remove focus outline */
+}
+
+.textboxEdit {
+  font-size: 16px; /* Must match display mode */
+  line-height: 1.5; /* Must match display mode */
+  color: #333; /* Must match display mode */
+  white-space: pre-wrap; /* Match display mode */
+  word-wrap: break-word; /* Match display mode */
+  background-color: transparent; /* Match display mode */
+  border: none; /* No border */
+  outline: none; /* No focus outline */
+  resize: none; /* Disable resizing, handled by your resizable component */
+  width: 100%; /* Take full width of the parent */
+  height: 100%; /* Take full height of the parent */
+  overflow: auto; /* Scrollbar for overflow text */
+  padding: 0; /* Remove padding */
+}
+.textbox textarea {
+  font-size: 16px; /* Must match display mode */
+  line-height: 1.5; /* Must match display mode */
+  color: #333; /* Must match display mode */
+  white-space: pre-wrap; /* Match display mode */
+  word-wrap: break-word; /* Match display mode */
+  background-color: transparent; /* Match display mode */
+  border: none; /* No border */
+  outline: none; /* No focus outline */
+  resize: none; /* Disable resizing, handled by your resizable component */
+  width: 100%; /* Take full width of the parent */
+  height: 900px; /* Take full height of the parent */
+  overflow: auto; /* Scrollbar for overflow text */
+  padding: 0; /* Remove padding */
+}
+
+
+.image-container {
+  position: absolute;
+  z-index: 1;
+}
+
+.resize-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: nwse-resize;
+  background: #ffffff;
+  outline-style: solid;
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+}
+
+.rotate-handle {
+  /* Style your rotate handle here */
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: -40px; /* Adjusted to place the handle above the image */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust horizontally to center */
+  cursor: pointer;
+}
+
+
+.profile_maincontent img {
+  display: block;
+  width: 75vw; /* Makes the image take the full width of its container */
+  height: auto; /* Keeps the aspect ratio of the image */
+  margin: 0 auto; /* Centers the image horizontally in its container */
+  margin-top: 1vw;
+  margin-left: 3vw;
+}
