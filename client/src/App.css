@@ -1303,10 +1303,11 @@ font-size: 1.5vw;
 }
 
 
-{/*=================================Code for Editor =============================================*/}
+
 
 
 .background {
+  /*starting the code for the editor*/
   background-color: grey;
   height: 100%;
 }
